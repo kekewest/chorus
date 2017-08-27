@@ -1,0 +1,25 @@
+:host {
+  border: 1px solid rgb(106, 106, 106);
+  overflow: hidden;
+  position: relative;
+  display: table-cell;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  position: absolute;
+}
+
+table tr {}
+
+table td {
+  width: 90px;
+  height: 20px;
+  border-left: 1px solid rgb(223, 223, 223);
+  border-right: 1px solid rgb(223, 223, 223);
+  margin: 0;
+  padding: 0;
+  font-size: 9px;
+}

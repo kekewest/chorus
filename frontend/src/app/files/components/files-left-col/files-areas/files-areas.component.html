@@ -1,0 +1,11 @@
+<div class="area-label">Areas</div>
+<div class="areas-wrapper">
+  <div class="area"
+    [class.current]="isCurrentArea(areaName)" 
+    (click)="onSelectArea(areaName)"
+    *ngFor="let areaName of areas">
+      <img class="icon" src="/assets/images/files/area-icon.png">
+      <span class="name">{{areaName}}</span>
+    </div>
+</div>
+<wf-loading-mask [name]="'files-areas'" [backgroundColor]="'#f3f3f3'"></wf-loading-mask>

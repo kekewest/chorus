@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: production
+
+  devtools:
+    restart:
+      enabled: false
+
+server:
+  session:
+    persistent: false
+    tracking-modes: "cookie"
+
+security:
+  basic:
+    enabled: false
+
+management:
+  add-application-context-header: false

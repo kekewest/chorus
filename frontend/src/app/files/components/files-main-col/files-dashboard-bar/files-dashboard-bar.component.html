@@ -1,0 +1,64 @@
+<div class="btn-group new-toggle" dropdown>
+  <button dropdownToggle type="button" class="btn btn-info btn-sm dropdown-toggle btn-new">New<span class="caret"></span>
+  </button>
+  <ul *dropdownMenu class="dropdown-menu" role="menu">
+    <li role="menuitem">
+      <a class="dropdown-item" (click)="showNewModal('directory')">
+        <img class="icon" src="/assets/images/files/folder-icon.png">
+        <span>Folder</span>
+      </a>
+    </li>
+    <li role="menuitem">
+      <a class="dropdown-item" (click)="showNewModal('spread-sheet')">
+        <img class="icon" src="/assets/images/files/file-icon.png">
+        <span>SpreadSheet</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<form class="form-inline search-file">
+  <div class="form-group">
+    <input type="text" class="form-control search" id="" placeholder="search">
+  </div>
+</form>
+
+<div
+    [config]="{backdrop: true}"
+    (onHidden)="onHiddenNewModal()"
+    (onShown)="onShownNewModal()"
+    bsModal 
+    #newModal="bs-modal"
+    class="modal fade new-modal" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 *ngIf="newModalType === 'spread-sheet'" class="modal-title pull-left">Create New SpreadSheet</h4>
+        <h4 *ngIf="newModalType === 'directory'" class="modal-title pull-left">Create New Folder</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideNewModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onNewModalSubmit($event)" [formGroup]="newModalForm">
+          <div class="form-group">
+            <input
+              #nameInput
+              formControlName="name"
+              type="text"
+              class="form-control"
+              placeholder="Name">
+          </div>
+          <p *ngIf="newModalFormErrorState.name.required" class="text-danger">Name is required.</p>
+          <p *ngIf="newModalFormErrorState.name.invalidName" class="text-danger">Please do not include "/" in the name.</p>
+          <p *ngIf="newModalFormErrorState.name.sameName" class="text-danger">The same name already exists.</p>
+          <div class="btn-wrapper">
+            <button [disabled]="!newModalForm.valid" type="submit" class="btn btn-success">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

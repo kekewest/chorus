@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+nav {
+  border: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  height: 50px;
+  overflow: hidden;
+}
+
+.navbar-nav {
+  margin: 0;
+
+  >li {
+    float: left;
+
+    >a {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      cursor: pointer;
+    }
+  }
+}
+
+.navbar-right {
+  float: right;
+}

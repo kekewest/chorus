@@ -1,0 +1,61 @@
+:host {
+  height: 35px;
+  border-bottom: 1px solid #e1f4ff;
+  background-color: #eff9ff;
+}
+
+.btn-group {
+  &.new-toggle {
+    margin: 3px 12px;
+  }
+
+  .btn {
+    width: 60px;
+    height: 28px;
+    padding: 4px;
+
+    .caret {
+      margin-left: 5px;
+    }
+  }
+
+  .dropdown-item {
+    padding: 3px 14px;
+    cursor: pointer;
+
+    .icon {
+      margin-bottom: 2px;
+      margin-right: 3px;
+    }
+  }
+}
+
+.search-file {
+  float: right;
+  margin: 4px 12px;
+
+  input.search {
+    height: 27px;
+    width: 200px;
+  }
+}
+
+.new-modal {
+  .modal-dialog {
+    width: 350px;
+
+    .modal-header {
+      padding: 6px 15px;
+
+      .close {
+        margin-top: 0;
+      }
+    }
+
+    .modal-body {
+      .btn-wrapper {
+        text-align: right;
+      }
+    }
+  }
+}

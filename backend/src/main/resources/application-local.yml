@@ -1,0 +1,16 @@
+chorus:
+  test-mode: true
+  
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/chorus
+    username: root
+    password: password
+    
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  devtools:
+    restart:
+      enabled: true

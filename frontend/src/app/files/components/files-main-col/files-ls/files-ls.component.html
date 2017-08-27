@@ -1,0 +1,37 @@
+<div class="table-header">
+  <table *ngIf="showFileList" class="table">
+    <thead>
+      <tr>
+        <th class="check"></th>
+        <th class="name">name</th>
+        <th class="editing">editing</th>
+        <th class="update-date">Update Date</th>
+        <th class="create-date">Create Date</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+<div class="table-body">
+  <table class="table table-hover">
+    <tbody>
+      <tr *ngFor="let node of childNodes; let i=index;">
+        <td class="check">
+          <label [attr.for]="node.nodeId">
+            <input type="checkbox" [id]="node.nodeId" [checked]="isSelectedNode(node)" (change)="changeSelectedNode(node)">
+          </label>
+        </td>
+        <td *ngIf="isDirectory(node)" [routerLink]="['/files']" [queryParams]="getNextDirParam(node)" class="name">
+          <img class="icon" src="/assets/images/files/folder-icon.png">
+          <span>{{node.name}}</span>
+        </td>
+        <td *ngIf="isFile(node)" [routerLink]="['/spread-sheet']" [queryParams]="getSpreadSheetParam(node)" class="name">
+          <img class="icon" src="/assets/images/files/file-icon.png">
+          <span>{{node.name}}</span>
+        </td>
+        <td class="editing"></td>
+        <td class="update-date">{{node.updateDateTime | moment:'YYYY/MM/DD HH:mm:ss' | empty:'-'}}</td>
+        <td class="create-date">{{node.createDateTime | moment:'YYYY/MM/DD HH:mm:ss' | empty:'-'}}</td>
+      </tr>
+    </tbody>
+</table>
+</div>

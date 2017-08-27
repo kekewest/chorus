@@ -1,0 +1,45 @@
+<div class="panel panel-default center-block login-form-block">
+  <div class="panel-body">
+    <form (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <label>UserName</label>
+        <input [(ngModel)]="form.userName"
+                name="userName"
+                type="text"
+                class="form-control"
+                placeholder="UserName"
+                tabindex="1">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input [(ngModel)]="form.password"
+                name="password"
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                tabindex="2">
+      </div>
+      <button type="submit" 
+              class="btn btn-success submit" 
+              [style.display]="submitDisabled ? 'none' : 'block'"
+              tabindex="3">Login</button>
+      <button type="button" 
+              class="btn btn-success loading" 
+              [disabled]="true"
+              [style.display]="submitDisabled ? 'block' : 'none'">
+        <div class="sk-cube-grid">
+          <div class="sk-cube sk-cube1"></div>
+          <div class="sk-cube sk-cube2"></div>
+          <div class="sk-cube sk-cube3"></div>
+          <div class="sk-cube sk-cube4"></div>
+          <div class="sk-cube sk-cube5"></div>
+          <div class="sk-cube sk-cube6"></div>
+          <div class="sk-cube sk-cube7"></div>
+          <div class="sk-cube sk-cube8"></div>
+          <div class="sk-cube sk-cube9"></div>
+        </div>
+        Login
+      </button>
+    </form>
+  </div>
+</div>

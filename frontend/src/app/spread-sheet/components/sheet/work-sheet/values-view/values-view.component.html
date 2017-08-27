@@ -1,0 +1,12 @@
+<ng-container *ngFor="let colNum of sheetViewColumnList; let colIndex = index;">
+  <ng-container *ngFor="let rowNum of sheetViewRowList; let rowIndex = index;">
+    <div *ngIf="sheetViewStoreService.getCell(colNum, rowNum).value"
+    class="cell-value"
+    [style.top.px]="getTextPosTop(rowIndex)" 
+    [style.left.px]="getTextPosLeft(colIndex)"
+    [style.height.px]="getCellHeight(rowNum)"
+    [style.font]="sheetViewStoreService.getCell(colNum, rowNum).font.toString()">
+      {{sheetViewStoreService.getCell(colNum, rowNum).value}}
+    </div>
+  </ng-container>
+</ng-container>

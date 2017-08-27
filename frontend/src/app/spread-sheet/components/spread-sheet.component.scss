@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  /deep/ {
+    * {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      cursor: default;
+    }
+
+    .ws-btn:hover {
+      background-color: rgba(51, 122, 183, 0.12);
+    }
+
+    .ws-btn:active {
+      background-color: rgba(51, 122, 183, 0.35);
+    }
+  }
+}
+
+.sheets-container {
+  width: 100%;
+  height: calc(100% - 140px);
+}
+
+.sheet {
+  width: 100%;
+  height: calc(100% - 1px);
+  table-layout: fixed;
+  border-collapse: collapse;
+}
