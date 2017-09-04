@@ -1,9 +1,9 @@
 package chorus.repository.config;
 
-import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import chorus.domain.db.node.config.ChorusVersion;
+import chorus.domain.db.entity.config.ChorusVersion;
 
-public interface ChorusVersionRepository extends Neo4jRepository<ChorusVersion, Long> {
+public interface ChorusVersionRepository extends JpaRepository<ChorusVersion, String> {
 
 }

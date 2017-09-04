@@ -1,11 +1,9 @@
 package chorus.repository.security;
 
-import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import chorus.domain.db.node.security.User;
+import chorus.domain.db.entity.security.User;
 
-public interface UserRepository extends Neo4jRepository<User, Long> {
-
-    User findByName(String username);
+public interface UserRepository extends JpaRepository<User, String> {
 
 }

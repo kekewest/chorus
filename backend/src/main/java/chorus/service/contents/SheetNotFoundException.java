@@ -1,16 +1,15 @@
-package chorus.service.files;
+package chorus.service.contents;
 
+import chorus.exception.ChorusException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import chorus.exception.ChorusException;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class NodeNotFoundException extends ChorusException {
+public class SheetNotFoundException extends ChorusException {
 
-    private String nodeId;
+    private String sheetId;
 
 }

@@ -7,11 +7,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import chorus.domain.db.entity.security.User;
 import chorus.repository.security.UserRepository;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -21,22 +21,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        chorus.domain.db.node.security.User userEntity = userRepository.findByName(username);
+        User userEntity = userRepository.findOne(username);
 
         if (userEntity == null) {
             throw new UsernameNotFoundException("user not found.");
         }
 
-        User user = new User(userEntity.getName(), userEntity.getPassword(), getAuthorities(userEntity));
+        org.springframework.security.core.userdetails.User user = new org.springframework.security.core.userdetails.User(
+                userEntity.getName(),
+                userEntity.getPassword(),
+                getAuthorities(userEntity));
+
         return user;
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(chorus.domain.db.node.security.User userEntity) {
+    private Collection<? extends GrantedAuthority> getAuthorities(User userEntity) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        userEntity.getAuthorities().forEach(
-                (authority) -> {
-                    authorities.add(new SimpleGrantedAuthority(authority.getAuthorityType().toString()));
-                });
+        authorities.add(new SimpleGrantedAuthority(userEntity.getAuthority().toString()));
         return authorities;
     }
 

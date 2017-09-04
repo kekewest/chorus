@@ -1,15 +1,22 @@
 package chorus.web.api.files.response;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
+import chorus.domain.db.entity.contents.Area;
 import lombok.Data;
 
-@AllArgsConstructor
 @Data
 public class AllAreas implements Serializable {
 
-    List<String> areas;
+    List<AreaResponse> areaResponses;
+
+    public AllAreas(List<Area> areas) {
+        this.areaResponses = new ArrayList<>();
+        for (Area area : areas) {
+            areaResponses.add(new AreaResponse(area));
+        }
+    }
 
 }

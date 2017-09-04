@@ -1,12 +1,13 @@
 package chorus.web.api.files.response;
 
-import lombok.Builder;
+import java.io.Serializable;
+
 import lombok.Data;
 
-@Builder
-@Data
-public class NewNode {
 
-    Node newNode;
+@Data
+public class NewSheetResponse implements Serializable {
+
+    SheetResponse sheetResponse;
 
 }

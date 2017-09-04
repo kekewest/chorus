@@ -3,13 +3,14 @@ chorus:
   
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/chorus
-    username: root
-    password: password
+    url: jdbc:mysql://localhost:3306/chorus?verifyServerCertificate=false&useSSL=false
+    username: chorus
+    password: chorus
     
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
 
   devtools:
     restart:

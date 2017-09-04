@@ -1,7 +1,7 @@
-package chorus.service.files;
+package chorus.service.contents;
 
 import chorus.exception.ChorusException;
 
-public class InvalidNodeNameException extends ChorusException {
+public class InvalidSheetNameException extends ChorusException {
 
 }

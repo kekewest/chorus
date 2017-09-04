@@ -1,9 +1,9 @@
-package chorus.repository.files;
+package chorus.repository.contents;
 
-import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import chorus.domain.db.node.files.File;
+import chorus.domain.db.entity.contents.Sheet;
 
-public interface FileRepository extends Neo4jRepository<File, Long> {
+public interface SheetRepository extends JpaRepository<Sheet, Long> {
 
 }

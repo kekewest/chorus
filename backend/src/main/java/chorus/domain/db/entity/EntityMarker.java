@@ -1,4 +1,4 @@
-package chorus.domain.db.node;
+package chorus.domain.db.entity;
 
 public interface EntityMarker {
 

@@ -19,12 +19,16 @@ public class InitialDataComponent {
     @Autowired
     private MasterDataComponent masterDataComponent;
 
+    @Autowired
+    private TestDataComponent testDataComponent;
+
     @PostConstruct
     private void init() {
         homeDirectoryComponent.init();
         masterDataComponent.createMasterData();
 
         if (chorusProperties.isTestMode()) {
+            testDataComponent.createTestData();
         }
     }
 
