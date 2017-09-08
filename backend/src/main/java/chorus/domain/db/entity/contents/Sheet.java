@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,6 +19,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import lombok.Data;
 
 @Entity
+@Table(indexes = {
+        @Index(name = "areaName", columnList = "areaName"),
+        @Index(name = "parentId", columnList = "parentId")
+})
 @Data
 public class Sheet implements Serializable {
 
@@ -26,6 +32,12 @@ public class Sheet implements Serializable {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String areaName;
+
+    @Column(nullable = false)
+    private Long parentId;
 
     @Column(unique = true, nullable = false)
     private String persistenceLocation;

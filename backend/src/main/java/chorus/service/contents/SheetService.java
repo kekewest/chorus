@@ -19,7 +19,7 @@ public class SheetService {
     @Autowired
     private AreaAccessAuthorityRepository areaAccessAuthorityRepository;
 
-//    public Document getDocuments(String username, String groupName, String parentDocId) {
+//    public List<Sheet> getSheets(String username, String areaName, Long parentSheetId) {
 //
 //    }
 
