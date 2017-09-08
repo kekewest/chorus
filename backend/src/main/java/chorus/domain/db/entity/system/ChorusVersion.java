@@ -1,4 +1,4 @@
-package chorus.domain.db.entity.config;
+package chorus.domain.db.entity.system;
 
 import java.io.Serializable;
 

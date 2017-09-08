@@ -3,19 +3,32 @@ package chorus.web.api.files.response;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import lombok.Builder;
+import chorus.domain.db.entity.contents.Sheet;
 import lombok.Data;
 
-@Builder
+
 @Data
 public class SheetResponse implements Serializable {
 
     private String name;
 
-    private String id;
+    private Long id;
+
+    private String updatedBy;
 
     private LocalDateTime updateDateTime;
 
+    private String createdBy;
+
     private LocalDateTime createDateTime;
+
+    public SheetResponse(Sheet sheet) {
+        this.name = sheet.getName();
+        this.id = sheet.getId();
+        this.updatedBy = sheet.getUpdatedBy();
+        this.updateDateTime = sheet.getUpdateDateTime();
+        this.createdBy = sheet.getCreatedBy();
+        this.createDateTime = sheet.getCreateDateTime();
+    }
 
 }

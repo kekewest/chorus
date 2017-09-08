@@ -1,33 +1,46 @@
 package chorus.domain.db.entity.contents;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.persistence.UniqueConstraint;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
+import chorus.domain.db.entity.Auditing;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 
 @Entity
-@Table(indexes = {
+@Table(
+    indexes = {
         @Index(name = "areaName", columnList = "areaName"),
-        @Index(name = "parentId", columnList = "parentId")
-})
+        @Index(name = "parentSheetId", columnList = "parentSheetId")
+    },
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "areaName", "parentSheetId", "name" })
+    })
+@EqualsAndHashCode(callSuper = false, exclude = { "area", "childSheets", "parentSheet" })
+@ToString(exclude = { "area", "childSheets", "parentSheet" })
 @Data
-public class Sheet implements Serializable {
+public class Sheet extends Auditing implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @TableGenerator(name = "seqTable", table = "seq_table", pkColumnName = "seq_name", valueColumnName = "seq_value",
+        pkColumnValue = "sheet", initialValue = -2)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "seqTable")
     private Long id;
 
     @Column(nullable = false)
@@ -37,25 +50,21 @@ public class Sheet implements Serializable {
     private String areaName;
 
     @Column(nullable = false)
-    private Long parentId;
+    private Long parentSheetId = -1L;
 
     @Column(unique = true, nullable = false)
     private String persistenceLocation;
 
-    @Column(nullable = false)
-    @LastModifiedBy
-    private String updatedBy;
+    @ManyToOne
+    @JoinColumn(name = "areaName", referencedColumnName = "name", insertable = false, updatable = false)
+    private Area area;
 
-    @Column(nullable = false)
-    @LastModifiedDate
-    private LocalDateTime updateDateTime;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentSheetId", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<Sheet> childSheets;
 
-    @Column(nullable = false)
-    @CreatedBy
-    private String createdBy;
-
-    @Column(nullable = false)
-    @CreatedDate
-    private LocalDateTime createDateTime;
+    @ManyToOne
+    @JoinColumn(name = "parentSheetId", referencedColumnName = "id", insertable = false, updatable = false)
+    private Sheet parentSheet;
 
 }

@@ -13,8 +13,10 @@ import javax.persistence.OneToMany;
 import chorus.domain.db.entity.security.AreaAccessAuthority;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@EqualsAndHashCode(exclude = { "authorities" })
+@EqualsAndHashCode(exclude = { "authorities", "sheets" })
+@ToString(exclude = { "authorities", "sheets" })
 @Data
 @Entity
 public class Area implements Serializable {
@@ -25,5 +27,9 @@ public class Area implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "areaName", referencedColumnName = "name", insertable = false, updatable = false)
     private List<AreaAccessAuthority> authorities;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "areaName", referencedColumnName = "name", insertable = false, updatable = false)
+    private List<Sheet> sheets;
 
 }

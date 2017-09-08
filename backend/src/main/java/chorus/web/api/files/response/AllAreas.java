@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class AllAreas implements Serializable {
 
-    List<AreaResponse> areaResponses;
+    private List<AreaResponse> areaResponses;
 
     public AllAreas(List<Area> areas) {
         this.areaResponses = new ArrayList<>();

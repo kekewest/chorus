@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+import chorus.config.properties.ChorusProperties;
 import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import chorus.config.properties.ChorusProperties;
 
 @Slf4j
 @Component
@@ -43,27 +41,32 @@ public class HomeDirectoryComponent {
         if (!filesDirectory.exists()) {
             try {
                 filesDirectory.mkdirs();
-                log.info("create spreadsheet directory. (" + filesDirectory.getAbsolutePath() + ")");
+                log.info("create file directory. (" + filesDirectory.getAbsolutePath() + ")");
             } catch (Exception e) {
-                log.error("create spreadsheet directory failed.", e);
+                log.error("create file directory failed.", e);
                 throw e;
             }
         }
     }
 
-    public String getFile(String nodeId) throws IOException {
-        File file = new File(fileDir + "/" + nodeId);
+    public String getFile(String path) throws IOException {
+        File file = new File(fileDir + "/" + path);
         return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
     }
 
-    public void updateFile(String nodeId, String fileBody) throws IOException {
-        File file = new File(fileDir + "/" + nodeId);
+    public void updateFile(String path, String fileBody) throws IOException {
+        File file = new File(fileDir + "/" + path);
         FileUtils.write(file, fileBody, StandardCharsets.UTF_8);
     }
 
-    public void removeFile(String nodeId) throws IOException {
-        File file = new File(fileDir + "/" + nodeId);
+    public void removeFile(String path) throws IOException {
+        File file = new File(fileDir + "/" + path);
         Files.delete(file.toPath());
+    }
+
+    public boolean existsFile(String path) {
+        File file = new File(fileDir + "/" + path);
+        return file.exists();
     }
 
 }

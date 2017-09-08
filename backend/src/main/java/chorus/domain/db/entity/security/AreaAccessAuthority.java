@@ -9,12 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import chorus.domain.db.entity.contents.Area;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @IdClass(AreaAccessAuthority.PK.class)
 @EqualsAndHashCode(exclude = { "area" })
+@ToString(exclude = { "area" })
 @Data
 public class AreaAccessAuthority implements Serializable {
 
@@ -28,6 +32,8 @@ public class AreaAccessAuthority implements Serializable {
     @JoinColumn(name = "areaName", referencedColumnName = "name", insertable = false, updatable = false)
     private Area area;
 
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class PK implements Serializable {
 
