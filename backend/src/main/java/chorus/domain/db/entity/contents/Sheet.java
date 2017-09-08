@@ -32,7 +32,9 @@ import lombok.ToString;
     uniqueConstraints = {
         @UniqueConstraint(columnNames = { "areaName", "parentSheetId", "name" })
     })
-@EqualsAndHashCode(callSuper = false, exclude = { "area", "childSheets", "parentSheet" })
+@EqualsAndHashCode(
+    callSuper = false,
+    exclude = { "area", "childSheets", "parentSheet" })
 @ToString(exclude = { "area", "childSheets", "parentSheet" })
 @Data
 public class Sheet extends Auditing implements Serializable {

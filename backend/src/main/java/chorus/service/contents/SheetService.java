@@ -31,7 +31,7 @@ public class SheetService {
     private AreaAccessAuthorityRepository areaAccessAuthorityRepository;
 
     public List<Sheet> getSheets(String userName, String areaName, Long parentSheetId) {
-        checkAllowedArea(userName, areaName);
+        checkAllowedSheet(userName, areaName, parentSheetId);
         return sheetRepository.findByAreaNameAndParentSheetId(areaName, parentSheetId);
     }
 
@@ -55,7 +55,11 @@ public class SheetService {
     @Transactional
     private Sheet createNewSheet(String userName, String areaName, Long parentSheetId,
         String sheetName, String sheetBody, String persistenceLocation) throws IOException {
-        checkAllowedArea(userName, areaName);
+        if (parentSheetId == null) {
+            checkAllowedArea(userName, areaName);
+        } else {
+            checkAllowedSheet(userName, areaName, parentSheetId);
+        }
         Sheet newSheet = new Sheet();
         newSheet.setName(sheetName);
         newSheet.setAreaName(areaName);
@@ -69,9 +73,16 @@ public class SheetService {
     }
 
     protected void checkAllowedArea(String userName, String areaName) {
-        AreaAccessAuthority authority = areaAccessAuthorityRepository
-            .findOne(new AreaAccessAuthority.PK(userName, areaName));
+        AreaAccessAuthority.PK pk = new AreaAccessAuthority.PK(userName, areaName);
+        AreaAccessAuthority authority = areaAccessAuthorityRepository.findOne(pk);
         if (authority == null) {
+            throw new AccessDeniedException("Access Denied.");
+        }
+    }
+
+    protected void checkAllowedSheet(String userName, String areaName, Long sheetId) {
+        Sheet sheet = sheetRepository.findAllowedSheet(userName, areaName, sheetId);
+        if (sheet == null) {
             throw new AccessDeniedException("Access Denied.");
         }
     }

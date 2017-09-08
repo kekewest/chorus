@@ -2,11 +2,10 @@ package chorus.repository.contents;
 
 import java.util.List;
 
+import chorus.domain.db.entity.contents.Area;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import chorus.domain.db.entity.contents.Area;
 
 public interface AreaRepository extends JpaRepository<Area, String> {
 
