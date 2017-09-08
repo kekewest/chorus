@@ -3,8 +3,6 @@ package chorus.web.api.files;
 import java.io.IOException;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import chorus.domain.db.entity.contents.Area;
 import chorus.domain.db.entity.contents.Sheet;
 import chorus.service.contents.AreaService;
@@ -46,7 +44,7 @@ public class FilesController {
     @GetMapping("/ls")
     public LsResponse ls(Authentication authentication,
             @RequestParam @NotEmpty String areaName,
-            @RequestParam @NotNull Long parentSheetId) {
+            @RequestParam Long parentSheetId) {
         List<Sheet> sheets = sheetService.getSheets(authentication.getName(), areaName, parentSheetId);
         return new LsResponse(sheets);
     }

@@ -1,20 +1,23 @@
 package chorus.config.Initial;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
 
 import chorus.domain.db.entity.contents.Area;
+import chorus.domain.db.entity.contents.Sheet;
 import chorus.domain.db.entity.security.AreaAccessAuthority;
 import chorus.domain.db.entity.security.User;
 import chorus.repository.contents.AreaRepository;
 import chorus.repository.security.AreaAccessAuthorityRepository;
 import chorus.repository.security.UserRepository;
 import chorus.security.AuthorityType;
+import chorus.service.contents.SheetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class TestDataComponent {
@@ -31,8 +34,11 @@ public class TestDataComponent {
     @Autowired
     private AreaAccessAuthorityRepository areaAccessAuthorityRepository;
 
+    @Autowired
+    private SheetService sheetService;
+
     @Transactional
-    public void createTestData() {
+    public void createTestData() throws IOException {
         createTestUser();
         createTestArea();
     }
@@ -52,17 +58,19 @@ public class TestDataComponent {
         userRepository.save(users);
     }
 
-    private void createTestArea() {
+    private void createTestArea() throws IOException {
         List<Area> areas = new ArrayList<>();
         Area area;
-
         for (int i = 0; i < 5; i++) {
             area = new Area();
             area.setName("area" + String.valueOf(i));
             areas.add(area);
         }
-
         areaRepository.save(areas);
+
+        for (int i = 0; i < 5; i++) {
+            sheetService.createNewSheet("area" + String.valueOf(i), Sheet.ROOT_ID, "", "", UUID.randomUUID().toString());
+        }
 
         List<AreaAccessAuthority> authorities = new ArrayList<>();
         AreaAccessAuthority authority;

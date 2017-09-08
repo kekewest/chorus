@@ -1,11 +1,12 @@
 package chorus.config.Initial;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 
+import chorus.config.properties.ChorusProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import chorus.config.properties.ChorusProperties;
 
 @Component
 public class InitialDataComponent {
@@ -23,7 +24,7 @@ public class InitialDataComponent {
     private TestDataComponent testDataComponent;
 
     @PostConstruct
-    private void init() {
+    private void init() throws IOException {
         homeDirectoryComponent.init();
         masterDataComponent.createMasterData();
 

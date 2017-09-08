@@ -39,6 +39,8 @@ import lombok.ToString;
 @Data
 public class Sheet extends Auditing implements Serializable {
 
+    public static final Long ROOT_ID = -1L;
+
     @Id
     @TableGenerator(name = "seqTable", table = "seq_table", pkColumnName = "seq_name", valueColumnName = "seq_value",
         pkColumnValue = "sheet", initialValue = -2)
@@ -52,7 +54,7 @@ public class Sheet extends Auditing implements Serializable {
     private String areaName;
 
     @Column(nullable = false)
-    private Long parentSheetId = -1L;
+    private Long parentSheetId;
 
     @Column(unique = true, nullable = false)
     private String persistenceLocation;
