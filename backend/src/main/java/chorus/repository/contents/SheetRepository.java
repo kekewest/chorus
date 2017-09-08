@@ -13,8 +13,8 @@ public interface SheetRepository extends JpaRepository<Sheet, Long> {
         + "where a.areaName = s.areaName "
         + "and a.userName = :userName "
         + "and a.areaName = :areaName "
-        + "and s.parentSheetId = :parentSheetId")
-    public Sheet findAllowedSheet(@Param("userName") String userName, @Param("areaName") String areaName, @Param("parentSheetId") Long parentSheetId);
+        + "and s.id = :id")
+    public Sheet findAllowedSheet(@Param("userName") String userName, @Param("areaName") String areaName, @Param("id") Long id);
 
     public List<Sheet> findByAreaNameAndParentSheetId(String areaName, Long parentSheetId);
 

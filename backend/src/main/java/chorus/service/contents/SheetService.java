@@ -22,31 +22,18 @@ public class SheetService {
     private SheetRepository sheetRepository;
 
     public List<Sheet> getSheets(String userName, String areaName, Long parentSheetId) {
-        Long parentId;
-        if (parentSheetId == null) {
-            parentId = Sheet.ROOT_ID;
-        } else {
-            parentId = parentSheetId;
-        }
-
-        checkAllowedSheet(userName, areaName, parentId);
-        return sheetRepository.findByAreaNameAndParentSheetId(areaName, parentId);
+        checkAllowedSheet(userName, areaName, parentSheetId);
+        return sheetRepository.findByAreaNameAndParentSheetId(areaName, parentSheetId);
     }
 
     public Sheet createNewSheet(String userName, String areaName, Long parentSheetId,
         String sheetName, String sheetBody) throws IOException {
-        Long parentId;
-        if (parentSheetId == null) {
-            parentId = Sheet.ROOT_ID;
-        } else {
-            parentId = parentSheetId;
-        }
-        checkAllowedSheet(userName, areaName, parentId);
+        checkAllowedSheet(userName, areaName, parentSheetId);
 
         String persistenceLocation = UUID.randomUUID().toString();
         Sheet sheet;
         try {
-            sheet = createNewSheet(areaName, parentId, sheetName, sheetBody, persistenceLocation);
+            sheet = createNewSheet(areaName, parentSheetId, sheetName, sheetBody, persistenceLocation);
         } catch (Exception e) {
             if (homeDirectoryComponent.existsFile(persistenceLocation)) {
                 homeDirectoryComponent.removeFile(persistenceLocation);
@@ -71,11 +58,12 @@ public class SheetService {
         return newSheet;
     }
 
-    protected void checkAllowedSheet(String userName, String areaName, Long sheetId) {
+    protected Sheet checkAllowedSheet(String userName, String areaName, Long sheetId) {
         Sheet sheet = sheetRepository.findAllowedSheet(userName, areaName, sheetId);
         if (sheet == null) {
             throw new AccessDeniedException("Access Denied.");
         }
+        return sheet;
     }
 
 }

@@ -3,6 +3,7 @@ package chorus.domain.db.entity.security;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -28,7 +29,7 @@ public class AreaAccessAuthority implements Serializable {
     @Id
     private String areaName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "areaName", referencedColumnName = "name", insertable = false, updatable = false)
     private Area area;
 

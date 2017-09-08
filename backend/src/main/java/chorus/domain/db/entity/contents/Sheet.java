@@ -59,7 +59,7 @@ public class Sheet extends Auditing implements Serializable {
     @Column(unique = true, nullable = false)
     private String persistenceLocation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "areaName", referencedColumnName = "name", insertable = false, updatable = false)
     private Area area;
 
@@ -67,7 +67,7 @@ public class Sheet extends Auditing implements Serializable {
     @JoinColumn(name = "parentSheetId", referencedColumnName = "id", insertable = false, updatable = false)
     private List<Sheet> childSheets;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentSheetId", referencedColumnName = "id", insertable = false, updatable = false)
     private Sheet parentSheet;
 
