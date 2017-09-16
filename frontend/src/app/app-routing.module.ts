@@ -4,7 +4,7 @@ import { MeStoreService } from "app/common/services";
 import { FilesComponent } from "app/files/components/files.component";
 import { LoginComponent } from "app/login/components/login.component";
 import { FilesLsComponent } from "app/files/components/files-main-col/files-ls/files-ls.component";
-import { SheetComponent } from "app/spread-sheet/components/sheet.component";
+import { SheetComponent } from "app/sheet/components/sheet.component";
 
 const routes: Routes = [
   {

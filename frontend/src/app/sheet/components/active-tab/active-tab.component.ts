@@ -2,16 +2,16 @@ import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementR
 import { Payload } from "app/common/base";
 
 @Component({
-  selector: 'cr-active-sheet',
-  templateUrl: './active-sheet.component.html',
-  styleUrls: ['./active-sheet.component.scss'],
+  selector: 'cr-active-tab',
+  templateUrl: './active-tab.component.html',
+  styleUrls: ['./active-tab.component.scss'],
 })
-export class ActiveSheetComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class ActiveTabComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
-  @ViewChild("activeSheetView")
-  private _activeSheetViewRef: ElementRef;
+  @ViewChild("activeTabView")
+  private _activeTabViewRef: ElementRef;
 
-  private _activeSheetViewEl: HTMLElement;
+  private _activeTabViewEl: HTMLElement;
 
   private _height: number;
 
@@ -30,8 +30,8 @@ export class ActiveSheetComponent implements OnInit, AfterViewInit, AfterViewChe
   }
 
   ngAfterViewInit() {
-    this._activeSheetViewEl = this._activeSheetViewRef.nativeElement;
-    var rect: ClientRect = this._activeSheetViewEl.getBoundingClientRect();
+    this._activeTabViewEl = this._activeTabViewRef.nativeElement;
+    var rect: ClientRect = this._activeTabViewEl.getBoundingClientRect();
     this._height = rect.height;
     this._width = rect.width;
     this.areaHeight = this._height * 1.1;
@@ -44,14 +44,14 @@ export class ActiveSheetComponent implements OnInit, AfterViewInit, AfterViewChe
 
   @HostListener('window:resize')
   private onWindowResize() {
-    var rect: ClientRect = this._activeSheetViewEl.getBoundingClientRect();
+    var rect: ClientRect = this._activeTabViewEl.getBoundingClientRect();
     this._height = rect.height;
     this._width = rect.width;
   }
 
   onScroll() {
-    var scrollTop: number = this._activeSheetViewEl.scrollTop;
-    var scrollLeft: number = this._activeSheetViewEl.scrollLeft;
+    var scrollTop: number = this._activeTabViewEl.scrollTop;
+    var scrollLeft: number = this._activeTabViewEl.scrollLeft;
     this.areaHeight = this._height * 1.1 + scrollTop;
     this.areaWidth = this._width * 1.1 + scrollLeft;
   }

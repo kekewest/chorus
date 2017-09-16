@@ -2,13 +2,13 @@ import { Component, OnInit, AfterViewChecked, ElementRef } from '@angular/core';
 import { Payload } from "app/common/base";
 
 @Component({
-  selector: 'cr-sheet-tab',
-  templateUrl: './sheet-tab.component.html',
-  styleUrls: ['./sheet-tab.component.scss'],
+  selector: 'cr-sheet-tabs',
+  templateUrl: './sheet-tabs.component.html',
+  styleUrls: ['./sheet-tabs.component.scss'],
   providers: [
   ]
 })
-export class SheetTabComponent implements OnInit, AfterViewChecked {
+export class SheetTabsComponent implements OnInit, AfterViewChecked {
 
   isLoadedSpreadSheet: boolean = false;
 

@@ -9,13 +9,13 @@ import { AppRoutingModule } from "app/app-routing.module";
 
 import { ApiService, ChorusDispatcherService, MeActionService, MeStoreService, FilesActionService, ErrorActionService, FilesStoreService } from "app/common/services";
 
-import { SheetComponent } from './spread-sheet/components/sheet.component';
-import { ActiveSheetComponent } from './spread-sheet/components/active-sheet/active-sheet.component';
-import { SheetTabComponent } from './spread-sheet/components/sheet-tab/sheet-tab.component';
-import { SheetEditComponent } from './spread-sheet/components/sheet-edit/sheet-edit.component';
-import { RedoUndoComponent } from './spread-sheet/components/sheet-edit/sheet-edit-home/redo-undo/redo-undo.component';
-import { SheetEditHomeComponent } from './spread-sheet/components/sheet-edit/sheet-edit-home/sheet-edit-home.component';
-import { FontStyleComponent } from './spread-sheet/components/sheet-edit/sheet-edit-home/font-style/font-style.component';
+import { SheetComponent } from './sheet/components/sheet.component';
+import { ActiveTabComponent } from './sheet/components/active-tab/active-tab.component';
+import { SheetTabsComponent } from './sheet/components/sheet-tabs/sheet-tabs.component';
+import { SheetEditComponent } from './sheet/components/sheet-edit/sheet-edit.component';
+import { RedoUndoComponent } from './sheet/components/sheet-edit/sheet-edit-home/redo-undo/redo-undo.component';
+import { SheetEditHomeComponent } from './sheet/components/sheet-edit/sheet-edit-home/sheet-edit-home.component';
+import { FontStyleComponent } from './sheet/components/sheet-edit/sheet-edit-home/font-style/font-style.component';
 import { LoginComponent } from './login/components/login.component';
 import { RootComponent } from './root/components/root.component';
 import { FilesComponent } from './files/components/files.component';
@@ -35,8 +35,8 @@ import { LoadingMaskComponent } from './common/components/loading-mask/loading-m
   declarations: [
     RootComponent,
     SheetComponent,
-    ActiveSheetComponent,
-    SheetTabComponent,
+    ActiveTabComponent,
+    SheetTabsComponent,
     SheetEditComponent,
     RedoUndoComponent,
     SheetEditHomeComponent,
