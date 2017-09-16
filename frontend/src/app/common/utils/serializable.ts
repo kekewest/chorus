@@ -2,6 +2,6 @@ export interface Serializable {
 
   toJSON(): any;
 
-  fromJSON(json: any): any;
+  fromJSON(json: any): Serializable;
 
 }

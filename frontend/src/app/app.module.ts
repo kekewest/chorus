@@ -9,17 +9,10 @@ import { AppRoutingModule } from "app/app-routing.module";
 
 import { ApiService, ChorusDispatcherService, MeActionService, MeStoreService, FilesActionService, ErrorActionService, FilesStoreService } from "app/common/services";
 
-import { SpreadSheetComponent } from './spread-sheet/components/spread-sheet.component';
+import { SheetComponent } from './spread-sheet/components/sheet.component';
+import { ActiveSheetComponent } from './spread-sheet/components/active-sheet/active-sheet.component';
 import { SheetTabComponent } from './spread-sheet/components/sheet-tab/sheet-tab.component';
 import { SheetEditComponent } from './spread-sheet/components/sheet-edit/sheet-edit.component';
-import { ColumnGridComponent } from './spread-sheet/components/sheet/column-grid/column-grid.component';
-import { RowGridComponent } from './spread-sheet/components/sheet/row-grid/row-grid.component';
-import { WorkSheetComponent } from './spread-sheet/components/sheet/work-sheet/work-sheet.component';
-import { AllCellComponent } from './spread-sheet/components/sheet/all-cell/all-cell.component';
-import { SheetViewCanvasComponent } from './spread-sheet/components/sheet/work-sheet/sheet-view-canvas/sheet-view-canvas.component';
-import { MouseEventBoardComponent } from './spread-sheet/components/sheet/work-sheet/mouse-event-board/mouse-event-board.component';
-import { SelectedCellAreaComponent } from './spread-sheet/components/sheet/work-sheet/mouse-event-board/selected-cell-area/selected-cell-area.component';
-import { ValuesViewComponent } from './spread-sheet/components/sheet/work-sheet/values-view/values-view.component';
 import { RedoUndoComponent } from './spread-sheet/components/sheet-edit/sheet-edit-home/redo-undo/redo-undo.component';
 import { SheetEditHomeComponent } from './spread-sheet/components/sheet-edit/sheet-edit-home/sheet-edit-home.component';
 import { FontStyleComponent } from './spread-sheet/components/sheet-edit/sheet-edit-home/font-style/font-style.component';
@@ -41,17 +34,10 @@ import { LoadingMaskComponent } from './common/components/loading-mask/loading-m
 @NgModule({
   declarations: [
     RootComponent,
-    SpreadSheetComponent,
+    SheetComponent,
+    ActiveSheetComponent,
     SheetTabComponent,
     SheetEditComponent,
-    ColumnGridComponent,
-    RowGridComponent,
-    WorkSheetComponent,
-    AllCellComponent,
-    SheetViewCanvasComponent,
-    MouseEventBoardComponent,
-    SelectedCellAreaComponent,
-    ValuesViewComponent,
     RedoUndoComponent,
     SheetEditHomeComponent,
     FontStyleComponent,

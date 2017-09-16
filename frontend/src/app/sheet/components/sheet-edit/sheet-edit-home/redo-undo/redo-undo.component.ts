@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SpreadSheetActionService } from "app/spread-sheet/services";
 
 @Component({
   selector: 'cr-redo-undo',
@@ -9,18 +8,15 @@ import { SpreadSheetActionService } from "app/spread-sheet/services";
 export class RedoUndoComponent implements OnInit {
 
   constructor(
-    private spreadSheetActionService: SpreadSheetActionService
   ) { }
 
   ngOnInit() {
   }
 
   undo() {
-    this.spreadSheetActionService.undo();
   }
 
   redo() {
-    this.spreadSheetActionService.redo();
   }
 
 }

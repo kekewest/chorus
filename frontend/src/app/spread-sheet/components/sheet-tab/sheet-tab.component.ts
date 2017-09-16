@@ -4,7 +4,7 @@ import { Payload } from "app/common/base";
 import { CreateNewSheetActionService } from "app/spread-sheet/services/command-actions/sheet";
 
 @Component({
-  selector: 'wf-sheet-tab',
+  selector: 'cr-sheet-tab',
   templateUrl: './sheet-tab.component.html',
   styleUrls: ['./sheet-tab.component.scss'],
   providers: [

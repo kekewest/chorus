@@ -49,24 +49,24 @@ export class SharedEditApiService {
   }
 
   start() {
-    this.route.queryParams.subscribe((params: Params) => {
-      this.nodeId = params["id"];
-      if (_.isEmpty(this.nodeId)) {
-        return;
-      }
+    // this.route.queryParams.subscribe((params: Params) => {
+    //   this.nodeId = params["id"];
+    //   if (_.isEmpty(this.nodeId)) {
+    //     return;
+    //   }
 
-      this.socket = new WebSocket("ws://localhost:8080" + SharedEditApiService.WEBSOCKET_ROOT);
-      this.stompClient = over(this.socket);
-      this.stompClient.connect(null, null, () => {
-        this.join();
-      });
-    });
+    //   this.socket = new WebSocket("ws://localhost:8080" + SharedEditApiService.WEBSOCKET_ROOT);
+    //   this.stompClient = over(this.socket);
+    //   this.stompClient.connect(null, null, () => {
+    //     this.join();
+    //   });
+    // });
   }
 
   close() {
-    this.stompClient.disconnect(() => {
-      this.socket.close();
-    });
+    // this.stompClient.disconnect(() => {
+    //   this.socket.close();
+    // });
   }
 
   sendEditCommand(commandName: string, commandJsonStr: string) {

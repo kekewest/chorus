@@ -8,7 +8,7 @@ export interface UpdateStatusEvent {
 }
 
 @Component({
-  selector: 'wf-loading-mask',
+  selector: 'cr-loading-mask',
   templateUrl: './loading-mask.component.html',
   styleUrls: ['./loading-mask.component.scss']
 })
