@@ -5,38 +5,37 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import chorus.config.Initial.HomeDirectoryComponent;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import chorus.config.Initial.HomeDirectoryComponent;
-
 @Service
-public class SpreadSheetStoreService {
+public class SheetStoreService {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    private SpreadSheetEditUsersService spreadSheetEditUsersService;
+    private SheetEditUsersService sheetEditUsersService;
 
     @Autowired
     private HomeDirectoryComponent homeDirectoryComponent;
 
-    public void requestSpreadSheet(String nodeId, String requestUserName) throws IOException {
-        int userCount = spreadSheetEditUsersService.getUserCount(nodeId);
+    public void requestSheet(String nodeId, String requestUserName) throws IOException {
+        int userCount = sheetEditUsersService.getUserCount(nodeId);
         if (userCount == 0) {
             return;
         } else if (userCount == 1) {
-            provideSpreadSheet(nodeId, requestUserName);
+            provideSheet(nodeId, requestUserName);
         } else {
-            Set<String> userNames = spreadSheetEditUsersService.getUserNames(nodeId);
+            Set<String> userNames = sheetEditUsersService.getUserNames(nodeId);
             userNames.remove(requestUserName);
             int requestNum = RandomUtils.nextInt(0, userNames.size());
 
             Map<String, Object> headers = new HashMap<>();
-            headers.put("event", "requestSpreadSheet");
+            headers.put("event", "requestSheet");
             headers.put("requestUser", requestUserName);
 
             simpMessagingTemplate.convertAndSendToUser(
@@ -47,27 +46,27 @@ public class SpreadSheetStoreService {
         }
     }
 
-    private void provideSpreadSheet(String nodeId, String userName) throws IOException {
-        String spreadSheet = homeDirectoryComponent.getFile(nodeId);
+    private void provideSheet(String nodeId, String userName) throws IOException {
+        String sheet = homeDirectoryComponent.getFile(nodeId);
         Map<String, Object> headers = new HashMap<>();
-        headers.put("event", "provideSpreadSheet");
+        headers.put("event", "provideSheet");
 
         simpMessagingTemplate.convertAndSendToUser(
                 userName,
                 "/topic/shared-edit/control/" + nodeId,
-                spreadSheet,
+                sheet,
                 headers);
     }
 
-    public void provideSpreadSheet(String nodeId, String requestUserName, String spreadSheet, String fromUserName) {
+    public void provideSheet(String nodeId, String requestUserName, String sheet, String fromUserName) {
         Map<String, Object> headers = new HashMap<>();
-        headers.put("event", "provideSpreadSheet");
+        headers.put("event", "provideSheet");
         headers.put("fromUser", fromUserName);
 
         simpMessagingTemplate.convertAndSendToUser(
                 requestUserName,
                 "/topic/shared-edit/control/" + nodeId,
-                spreadSheet,
+                sheet,
                 headers);
     }
 

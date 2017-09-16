@@ -1,4 +1,4 @@
-package chorus.web.api.files.response;
+package chorus.web.http.api.contents.response;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

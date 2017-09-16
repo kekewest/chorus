@@ -1,4 +1,4 @@
-package chorus.web.api.me;
+package chorus.web.http.api.me;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

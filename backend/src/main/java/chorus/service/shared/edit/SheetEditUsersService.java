@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 @Service
-public class SpreadSheetEditUsersService {
+public class SheetEditUsersService {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;

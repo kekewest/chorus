@@ -1,4 +1,4 @@
-package chorus.web.api.files;
+package chorus.web.http.api.contents;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,9 +7,9 @@ import chorus.domain.db.entity.contents.Area;
 import chorus.domain.db.entity.contents.Sheet;
 import chorus.service.contents.AreaService;
 import chorus.service.contents.SheetService;
-import chorus.web.api.files.response.AllAreas;
-import chorus.web.api.files.response.LsResponse;
-import chorus.web.api.files.response.NewSheetResponse;
+import chorus.web.http.api.contents.response.AllAreas;
+import chorus.web.http.api.contents.response.LsResponse;
+import chorus.web.http.api.contents.response.NewSheetResponse;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
-@RequestMapping("/api/files")
+@RequestMapping("/api/contents")
 @PreAuthorize("isAuthenticated()")
-public class FilesController {
+public class ContentsController {
 
     @Autowired
     private SheetService sheetService;
@@ -50,7 +50,7 @@ public class FilesController {
     }
 
     @PutMapping("/new-sheet")
-    public NewSheetResponse newSpreadSheet(Authentication authentication,
+    public NewSheetResponse newSheet(Authentication authentication,
             @RequestParam @NotEmpty String areaName,
             @RequestParam Long parentSheetId,
             @RequestParam @NotEmpty String sheetName,
