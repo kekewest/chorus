@@ -10,12 +10,11 @@ import org.springframework.data.repository.query.Param;
 public interface SheetRepository extends JpaRepository<Sheet, Long> {
 
     @Query("select s from Sheet s, AreaAccessAuthority a "
-        + "where a.areaName = s.areaName "
+        + "where s.id = :id "
         + "and a.userName = :userName "
-        + "and a.areaName = :areaName "
-        + "and s.id = :id")
-    public Sheet findAllowedSheet(@Param("userName") String userName, @Param("areaName") String areaName, @Param("id") Long id);
+        + "and a.areaName = s.areaName ")
+    public Sheet findAllowedSheet(@Param("userName") String userName, @Param("id") Long id);
 
-    public List<Sheet> findByAreaNameAndParentSheetId(String areaName, Long parentSheetId);
+    public List<Sheet> findByParentSheetId(Long parentSheetId);
 
 }

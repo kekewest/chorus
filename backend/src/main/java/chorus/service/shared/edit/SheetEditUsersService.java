@@ -12,11 +12,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Synchronized;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.MessagingException;
@@ -36,8 +34,8 @@ public class SheetEditUsersService {
 
     private ObjectWriter writer;
 
-    private ConcurrentHashMap<String, EditUsers> usersMap = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<String, HashSet<String>> edittingNodeIdsMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Long, EditUsers> usersMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, HashSet<Long>> edittingSheetIdsMap = new ConcurrentHashMap<>();
 
 
     @PostConstruct
@@ -47,50 +45,50 @@ public class SheetEditUsersService {
     }
 
     @Synchronized
-    public void join(String nodeId, String sessionId, String userName) throws MessagingException, JsonProcessingException {
+    public void join(Long sheetId, String sessionId, String userName) throws MessagingException, JsonProcessingException {
         EditUser user = new EditUser();
         user.setSessionId(sessionId);
         user.setUserName(userName);
 
-        EditUsers users = usersMap.get(nodeId);
+        EditUsers users = usersMap.get(sheetId);
         if (users == null) {
             users = new EditUsers();
-            usersMap.put(nodeId, users);
-            editCommandService.startEditCount(nodeId);
+            usersMap.put(sheetId, users);
+            editCommandService.startEditCount(sheetId);
         }
         users.addUser(user);
 
-        HashSet<String> edittingNodeIds = edittingNodeIdsMap.get(user.getSessionId());
-        if (edittingNodeIds == null) {
-            edittingNodeIds = new HashSet<>();
-            edittingNodeIdsMap.put(user.getSessionId(), edittingNodeIds);
+        HashSet<Long> edittingSheetIds = edittingSheetIdsMap.get(user.getSessionId());
+        if (edittingSheetIds == null) {
+            edittingSheetIds = new HashSet<>();
+            edittingSheetIdsMap.put(user.getSessionId(), edittingSheetIds);
         }
-        edittingNodeIds.add(nodeId);
+        edittingSheetIds.add(sheetId);
 
-        broadcastEditUsers(nodeId, users);
+        broadcastEditUsers(sheetId, users);
     }
 
     @Synchronized
     public void leave(String sessionId) throws MessagingException, JsonProcessingException {
-        HashSet<String> edittingNodeIds = edittingNodeIdsMap.get(sessionId);
-        if (edittingNodeIds == null) {
+        HashSet<Long> edittingSheetIds = edittingSheetIdsMap.get(sessionId);
+        if (edittingSheetIds == null) {
             return;
         }
 
-        for (String nodeId : edittingNodeIds) {
-            EditUsers users = usersMap.get(nodeId);
+        for (Long sheetId : edittingSheetIds) {
+            EditUsers users = usersMap.get(sheetId);
             if (users == null) {
                 continue;
             }
             users.removeUser(sessionId);
             if (users.size() == 0) {
-                usersMap.remove(nodeId);
-                editCommandService.endEditCount(nodeId);
+                usersMap.remove(sheetId);
+                editCommandService.endEditCount(sheetId);
             }
-            broadcastEditUsers(nodeId, users);
+            broadcastEditUsers(sheetId, users);
         }
 
-        edittingNodeIdsMap.remove(sessionId);
+        edittingSheetIdsMap.remove(sessionId);
     }
 
     @EventListener
@@ -100,8 +98,8 @@ public class SheetEditUsersService {
     }
 
     @Synchronized
-    public int getUserCount(String nodeId) {
-        EditUsers users = usersMap.get(nodeId);
+    public int getUserCount(Long sheetId) {
+        EditUsers users = usersMap.get(sheetId);
         if (users == null) {
             return 0;
         }
@@ -109,18 +107,18 @@ public class SheetEditUsersService {
     }
 
     @Synchronized
-    public Set<String> getUserNames(String nodeId) {
-        EditUsers users = usersMap.get(nodeId);
+    public Set<String> getUserNames(Long sheetId) {
+        EditUsers users = usersMap.get(sheetId);
         if (users == null) {
             return null;
         }
         return users.getUserNames();
     }
 
-    private void broadcastEditUsers(String nodeId, EditUsers editUsers) throws MessagingException, JsonProcessingException {
+    private void broadcastEditUsers(Long sheetId, EditUsers editUsers) throws MessagingException, JsonProcessingException {
         Map<String, Object> headers = new HashMap<>();
         headers.put("event", "updateEditUsers");
-        simpMessagingTemplate.convertAndSend("/topic/shared-edit/control/" + nodeId, writer.writeValueAsString(editUsers.getUserMap()), headers);
+        simpMessagingTemplate.convertAndSend("/topic/concurrent-edit/control/" + String.valueOf(sheetId), writer.writeValueAsString(editUsers.getUserMap()), headers);
     }
 
 

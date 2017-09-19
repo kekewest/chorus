@@ -15,8 +15,8 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@MessageMapping("shared-edit")
-public class SharedEditController {
+@MessageMapping("concurrent-edit")
+public class ConcurrentEditSheetController {
 
     @Autowired
     private SheetEditUsersService sheetEditUsersService;
@@ -27,36 +27,36 @@ public class SharedEditController {
     @Autowired
     private SheetStoreService sheetStoreService;
 
-    @MessageMapping("join/{nodeId}")
-    public void join(@DestinationVariable String nodeId, Message<String> message) throws MessagingException, JsonProcessingException {
+    @MessageMapping("join/{sheetId}")
+    public void join(@DestinationVariable Long sheetId, Message<String> message) throws MessagingException, JsonProcessingException {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(message);
         sheetEditUsersService.join(
-                nodeId,
+                sheetId,
                 sha.getSessionId(),
                 sha.getUser().getName());
     }
 
-    @MessageMapping("request-sheet/{nodeId}")
-    public void requestSheet(@DestinationVariable String nodeId, Message<String> message) throws IOException {
+    @MessageMapping("request-sheet/{sheetId}")
+    public void requestSheet(@DestinationVariable Long sheetId, Message<String> message) throws IOException {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(message);
-        sheetStoreService.requestSheet(nodeId, sha.getUser().getName());
+        sheetStoreService.requestSheet(sheetId, sha.getUser().getName());
     }
 
-    @MessageMapping("provide-sheet/{nodeId}")
-    public void provideSheet(@DestinationVariable String nodeId, Message<String> message) {
+    @MessageMapping("provide-sheet/{sheetId}")
+    public void provideSheet(@DestinationVariable Long sheetId, Message<String> message) {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(message);
         sheetStoreService.provideSheet(
-                nodeId,
+                sheetId,
                 sha.getFirstNativeHeader("requestUser"),
                 message.getPayload(),
                 sha.getUser().getName());
     }
 
-    @MessageMapping("send-edit-command/{nodeId}")
-    public void sendEditCommand(@DestinationVariable String nodeId, Message<String> message) {
+    @MessageMapping("send-edit-command/{sheetId}")
+    public void sendEditCommand(@DestinationVariable Long sheetId, Message<String> message) {
         StompHeaderAccessor sha = StompHeaderAccessor.wrap(message);
         editCommandService.broadcastEditCommand(
-                nodeId,
+                sheetId,
                 sha.getFirstNativeHeader("commandName"),
                 message.getPayload());
     }

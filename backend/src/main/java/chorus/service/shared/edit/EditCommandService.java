@@ -15,24 +15,24 @@ public class EditCommandService {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    private ConcurrentHashMap<String, AtomicLong> commandCounts = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Long, AtomicLong> commandCounts = new ConcurrentHashMap<>();
 
-    public void startEditCount(String nodeId) {
-        commandCounts.put(nodeId, new AtomicLong());
+    public void startEditCount(Long sheetId) {
+        commandCounts.put(sheetId, new AtomicLong());
     }
 
-    public void endEditCount(String nodeId) {
-        commandCounts.remove(nodeId);
+    public void endEditCount(Long sheetId) {
+        commandCounts.remove(sheetId);
     }
 
-    public void broadcastEditCommand(String nodeId, String commandName, String commandJsonStr) {
-        long count = commandCounts.get(nodeId).incrementAndGet();
+    public void broadcastEditCommand(Long sheetId, String commandName, String commandJsonStr) {
+        long count = commandCounts.get(sheetId).incrementAndGet();
         Map<String, Object> headers = new HashMap<>();
         headers.put("event", "invokeEditCommand");
         headers.put("commandName", commandName);
         headers.put("commandCount", String.valueOf(count));
         simpMessagingTemplate.convertAndSend(
-                "/topic/shared-edit/" + nodeId, commandJsonStr, headers);
+                "/topic/concurrent-edit/" + String.valueOf(sheetId), commandJsonStr, headers);
     }
 
 }

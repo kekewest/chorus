@@ -21,19 +21,18 @@ public class SheetService {
     @Autowired
     private SheetRepository sheetRepository;
 
-    public List<Sheet> getSheets(String userName, String areaName, Long parentSheetId) {
-        checkAllowedSheet(userName, areaName, parentSheetId);
-        return sheetRepository.findByAreaNameAndParentSheetId(areaName, parentSheetId);
+    public List<Sheet> getSheets(String userName, Long parentSheetId) {
+        Sheet parentSheet = getAllowedSheet(userName, parentSheetId);
+        return sheetRepository.findByParentSheetId(parentSheet.getId());
     }
 
-    public Sheet createNewSheet(String userName, String areaName, Long parentSheetId,
-        String sheetName, String sheetBody) throws IOException {
-        checkAllowedSheet(userName, areaName, parentSheetId);
+    public Sheet createNewSheet(String userName, Long parentSheetId, String sheetName, String sheetBody) throws IOException {
+        Sheet parentSheet = getAllowedSheet(userName, parentSheetId);
 
         String persistenceLocation = UUID.randomUUID().toString();
         Sheet sheet;
         try {
-            sheet = createNewSheet(areaName, parentSheetId, sheetName, sheetBody, persistenceLocation);
+            sheet = createNewSheet(parentSheet.getAreaName(), parentSheet.getId(), sheetName, sheetBody, persistenceLocation);
         } catch (Exception e) {
             if (homeDirectoryComponent.existsFile(persistenceLocation)) {
                 homeDirectoryComponent.removeFile(persistenceLocation);
@@ -58,8 +57,8 @@ public class SheetService {
         return newSheet;
     }
 
-    protected Sheet checkAllowedSheet(String userName, String areaName, Long sheetId) {
-        Sheet sheet = sheetRepository.findAllowedSheet(userName, areaName, sheetId);
+    public Sheet getAllowedSheet(String userName, Long sheetId) {
+        Sheet sheet = sheetRepository.findAllowedSheet(userName, sheetId);
         if (sheet == null) {
             throw new AccessDeniedException("Access Denied.");
         }
