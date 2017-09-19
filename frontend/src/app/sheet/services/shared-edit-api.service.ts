@@ -9,11 +9,11 @@ import { Sheet } from "app/sheet";
 export class SharedEditApiService {
 
   static STOMP_ROOT: string = "/stomp";
-  static TOPIC: string = "/topic/shared-edit/";
+  static TOPIC: string = "/topic/concurrent-edit/";
   static USER_TOPIC: string = "/user" + SharedEditApiService.TOPIC;
-  static CONTROL_TOPIC: string = "/topic/shared-edit/control/";
+  static CONTROL_TOPIC: string = "/topic/concurrent-edit/control/";
   static USER_CONTROL_TOPIC: string = "/user" + SharedEditApiService.CONTROL_TOPIC;
-  static API_ROOT: string = "/api/shared-edit/";
+  static API_ROOT: string = "/api/concurrent-edit/";
 
   static EVENT_PREFIX: string = "SharedEditApiService.";
   static EDIT_COMMAND_EVENT_PREFIX: string = SharedEditApiService.EVENT_PREFIX + "edit-command-event.";
