@@ -1,6 +1,6 @@
 import { Serializable } from "app/common/utils";
 import { Payload } from "app/common/base";
-import { SheetActionService, SheetDispatcherService, SharedEditApiService } from "app/sheet/services";
+import { SheetActionService, SheetDispatcherService, ConcurrentEditApiService } from "app/sheet/services";
 import { Sheet } from "app/sheet";
 
 export abstract class EditCommandActionService {
@@ -10,11 +10,11 @@ export abstract class EditCommandActionService {
 
   constructor(
     protected sheetDispatcherService: SheetDispatcherService,
-    protected sharedEditApiService: SharedEditApiService
+    protected concurrentEditApiService: ConcurrentEditApiService
   ) {
     this.sheetDispatcherService.register(
       (payload: Payload) => {
-        if (payload.eventType === SharedEditApiService.EDIT_COMMAND_EVENT_PREFIX + this.commandName) {
+        if (payload.eventType === ConcurrentEditApiService.EDIT_COMMAND_EVENT_PREFIX + this.commandName) {
           this.emitEditCommand(<string>payload.data);
         }
       }
@@ -27,7 +27,7 @@ export abstract class EditCommandActionService {
 
   protected sendEditCommand(editCommand: EditCommand) {
     var commandJsonStr: string = JSON.stringify(editCommand);
-    this.sharedEditApiService.sendEditCommand(this.commandName, commandJsonStr);
+    this.concurrentEditApiService.sendEditCommand(this.commandName, commandJsonStr);
   }
 
   private emitEditCommand(editCommandJsonStr: string) {

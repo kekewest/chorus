@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Payload } from "app/common/base";
-import { SheetDispatcherService, SheetStoreService, SheetActionService, SharedEditApiService, EditCommandStoreService } from "app/sheet/services";
+import { SheetDispatcherService, SheetStoreService, SheetActionService, ConcurrentEditApiService, EditCommandStoreService } from "app/sheet/services";
 
 @Component({
   selector: 'cr-sheet',
   templateUrl: './sheet.component.html',
   styleUrls: ['./sheet.component.scss'],
   providers: [
-    SharedEditApiService,
+    ConcurrentEditApiService,
     SheetDispatcherService,
     SheetStoreService,
     SheetActionService,
@@ -17,7 +17,7 @@ import { SheetDispatcherService, SheetStoreService, SheetActionService, SharedEd
 export class SheetComponent implements OnInit, OnDestroy {
 
   constructor(
-    private sharedEditApiService: SharedEditApiService,
+    private concurrentEditApiService: ConcurrentEditApiService,
     private sheetDispatcherService: SheetDispatcherService,
     private sheetStoreService: SheetStoreService,
     private sheetActionService: SheetActionService,
@@ -25,11 +25,11 @@ export class SheetComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.sharedEditApiService.start();
+    this.concurrentEditApiService.start();
   }
 
   ngOnDestroy() {
-    this.sharedEditApiService.close();
+    this.concurrentEditApiService.close();
   }
 
 }

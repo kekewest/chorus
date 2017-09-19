@@ -6,17 +6,17 @@ import { SheetDispatcherService, SheetActionService, SheetStoreService } from "a
 import { Sheet } from "app/sheet";
 
 @Injectable()
-export class SharedEditApiService {
+export class ConcurrentEditApiService {
 
   static STOMP_ROOT: string = "/stomp";
   static TOPIC: string = "/topic/concurrent-edit/";
-  static USER_TOPIC: string = "/user" + SharedEditApiService.TOPIC;
+  static USER_TOPIC: string = "/user" + ConcurrentEditApiService.TOPIC;
   static CONTROL_TOPIC: string = "/topic/concurrent-edit/control/";
-  static USER_CONTROL_TOPIC: string = "/user" + SharedEditApiService.CONTROL_TOPIC;
+  static USER_CONTROL_TOPIC: string = "/user" + ConcurrentEditApiService.CONTROL_TOPIC;
   static API_ROOT: string = "/api/concurrent-edit/";
 
-  static EVENT_PREFIX: string = "SharedEditApiService.";
-  static EDIT_COMMAND_EVENT_PREFIX: string = SharedEditApiService.EVENT_PREFIX + "edit-command-event.";
+  static EVENT_PREFIX: string = "ConcurrentEditApiService.";
+  static EDIT_COMMAND_EVENT_PREFIX: string = ConcurrentEditApiService.EVENT_PREFIX + "edit-command-event.";
 
   private nodeId: string;
 
@@ -71,35 +71,35 @@ export class SharedEditApiService {
   sendEditCommand(commandName: string, commandJsonStr: string) {
     var headers: {} = {};
     headers["commandName"] = commandName;
-    this.stompClient.send(SharedEditApiService.API_ROOT + "send-edit-command/" + this.nodeId, headers, commandJsonStr);
+    this.stompClient.send(ConcurrentEditApiService.API_ROOT + "send-edit-command/" + this.nodeId, headers, commandJsonStr);
   }
 
   private join() {
-    this.stompClient.subscribe(SharedEditApiService.CONTROL_TOPIC + this.nodeId, (message: Message) => {
+    this.stompClient.subscribe(ConcurrentEditApiService.CONTROL_TOPIC + this.nodeId, (message: Message) => {
       var method: (message: Message) => void = this.controlMethodHandler[message.headers["event"]];
       if (method) {
         method.call(this, message);
       }
     });
-    this.stompClient.subscribe(SharedEditApiService.USER_CONTROL_TOPIC + this.nodeId, (message: Message) => {
+    this.stompClient.subscribe(ConcurrentEditApiService.USER_CONTROL_TOPIC + this.nodeId, (message: Message) => {
       var method: (message: Message) => void = this.controlMethodHandler[message.headers["event"]];
       if (method) {
         method.call(this, message);
       }
     });
-    this.stompClient.subscribe(SharedEditApiService.TOPIC + this.nodeId, (message: Message) => {
+    this.stompClient.subscribe(ConcurrentEditApiService.TOPIC + this.nodeId, (message: Message) => {
       var method: (message: Message) => void = this.methodHandler[message.headers["event"]];
       if (method) {
         method.call(this, message);
       }
     });
 
-    this.stompClient.send(SharedEditApiService.API_ROOT + "join/" + this.nodeId, {}, "{}");
+    this.stompClient.send(ConcurrentEditApiService.API_ROOT + "join/" + this.nodeId, {}, "{}");
   }
 
   private invokeEditCommand(message: Message) {
     this.sheetDispatcherService.emit({
-      eventType: SharedEditApiService.EDIT_COMMAND_EVENT_PREFIX + message.headers["commandName"],
+      eventType: ConcurrentEditApiService.EDIT_COMMAND_EVENT_PREFIX + message.headers["commandName"],
       data: message.body
     });
   }
@@ -112,7 +112,7 @@ export class SharedEditApiService {
   }
 
   private getSheet() {
-    this.stompClient.send(SharedEditApiService.API_ROOT + "request-sheet/" + this.nodeId, {}, "{}");
+    this.stompClient.send(ConcurrentEditApiService.API_ROOT + "request-sheet/" + this.nodeId, {}, "{}");
   }
 
   private provideSheet(message: Message) {
@@ -124,7 +124,7 @@ export class SharedEditApiService {
     var headers: {} = {};
     headers["requestUser"] = message.headers["requestUser"];
     this.stompClient.send(
-      SharedEditApiService.API_ROOT + "provide-sheet/" + this.nodeId,
+      ConcurrentEditApiService.API_ROOT + "provide-sheet/" + this.nodeId,
       headers,
       JSON.stringify(this.sheetStoreService.sheet));
   }
