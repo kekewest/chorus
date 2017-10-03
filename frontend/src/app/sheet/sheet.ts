@@ -12,6 +12,15 @@ export class Sheet implements Serializable {
     public selectedTabName?: string
   ) { }
 
+  init(name: string): Sheet {
+    this.tabs = {
+      "Tab 1": new Tab().init()
+    };
+    this.tabOrder = ["Tab 1"];
+    this.selectedTabName = "Tab 1";
+    return this;
+  }
+
   toJSON(): Sheet {
     return this;
   }
@@ -23,7 +32,7 @@ export class Sheet implements Serializable {
 
     this.name = json.name;
     this.tabs = {};
-    _.forOwn(json.tabs, (tab, tabName) => {
+    _.forOwn(json.tabs, (tab: string, tabName: string) => {
       this.tabs[tabName] = new Tab().fromJSON(tab);
     });
     this.tabOrder = json.tabOrder;

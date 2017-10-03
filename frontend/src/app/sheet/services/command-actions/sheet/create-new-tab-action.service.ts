@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { _ } from "app";
 import { EditCommandActionService, EditCommand } from "app/sheet/services/command-actions";
-import { SheetDispatcherService, SharedEditApiService } from "app/sheet/services";
+import { SheetDispatcherService, ConcurrentEditService } from "app/sheet/services";
 import { Tab } from "app/sheet";
 
 @Injectable()
@@ -9,9 +9,9 @@ export class CreateNewTabActionService extends EditCommandActionService {
 
   constructor(
     protected sheetDispatcherService: SheetDispatcherService,
-    protected sharedEditApiService: SharedEditApiService
+    protected concurrentEditService: ConcurrentEditService
   ) {
-    super(sheetDispatcherService, sharedEditApiService);
+    super(sheetDispatcherService, concurrentEditService);
   }
 
   get commandName(): string {

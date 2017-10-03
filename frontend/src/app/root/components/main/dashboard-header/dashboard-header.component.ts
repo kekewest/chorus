@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
 
 @Component({
-  selector: 'wf-dashboard-header',
+  selector: 'cr-dashboard-header',
   templateUrl: './dashboard-header.component.html',
   styleUrls: ['./dashboard-header.component.scss']
 })

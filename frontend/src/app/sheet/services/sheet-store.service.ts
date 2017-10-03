@@ -57,7 +57,7 @@ export class SheetStoreService extends Emitter<Payload> {
     return true;
   }
 
-  setSheet(action: SheetAction.LoadSheet) {
+  private setSheet(action: SheetAction.LoadSheet) {
     this._sheet = action.sheet;
     this.emit({ eventType: SheetStoreService.LOAD_SHEET_EVENT });
     this.chorusDispatcherService.emit({ 

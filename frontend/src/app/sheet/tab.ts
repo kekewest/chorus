@@ -5,8 +5,13 @@ import { ElementBase, Text } from "app/sheet/elements";
 export class Tab implements Serializable {
 
   constructor(
-    public elements?: ElementBase[],
+    public elements?: ElementBase[]
   ) { }
+
+  init(): Tab {
+    this.elements = [];
+    return this;
+  }
 
   toJSON(): Tab {
     return this;

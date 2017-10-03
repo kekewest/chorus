@@ -1,13 +1,13 @@
-<div class="create-sheet" *ngIf="isLoadedSpreadSheet" (click)="createNewSheet()">
+<div class="create-sheet" *ngIf="isLoadedSheet" (click)="createNewTab()">
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </div>
 <div class="tabset-wrapper">
   <tabset>
-    <ng-container *ngFor="let sheetName of sheetOrder">
+    <ng-container *ngFor="let tabName of tabOrder">
       <tab
-          [heading]="sheetName"
-          [active]="isActiveTab(sheetName)"
-          (select)="selectSheet(sheetName)">
+          [heading]="tabName"
+          [active]="isActiveTab(tabName)"
+          (select)="selectTab(tabName)">
       </tab>
     </ng-container>
   </tabset>
