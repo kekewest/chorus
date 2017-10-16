@@ -5,6 +5,7 @@ import { _ } from "app";
 import { SheetDispatcherService, SheetActionService, SheetStoreService } from "app/sheet/services";
 import { Sheet } from "app/sheet";
 import { Text } from "app/sheet/elements";
+import { UUID } from "app/common/utils";
 
 @Injectable()
 export class ConcurrentEditService {
@@ -67,7 +68,15 @@ export class ConcurrentEditService {
     textEl.posX = 200;
     textEl.posY = 100;
     textEl.text = "TextText";
-    testSheet.tabs[testSheet.selectedTabName].elements = [textEl];
+    var id = UUID.v4();
+    testSheet.tabs[testSheet.selectedTabName].elements[id] = textEl;
+    testSheet.tabs[testSheet.selectedTabName].elementOrder.push(id);
+
+    testSheet = new Sheet().fromJSON(
+      JSON.parse(
+        JSON.stringify(testSheet)
+      )
+    );
 
     setTimeout(() => {
       this.sheetActionService.setSheet(testSheet);

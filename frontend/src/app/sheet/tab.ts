@@ -1,15 +1,18 @@
 
 import { Serializable } from "app/common/utils";
 import { ElementBase, Text } from "app/sheet/elements";
+import { ElementTypeService } from "app/sheet/services";
 
 export class Tab implements Serializable {
 
   constructor(
-    public elements?: ElementBase[]
+    public elements?: { [id: string]: ElementBase },
+    public elementOrder?: string[]
   ) { }
 
   init(): Tab {
-    this.elements = [];
+    this.elements = {};
+    this.elementOrder = [];
     return this;
   }
 
@@ -22,14 +25,13 @@ export class Tab implements Serializable {
       return null;
     }
 
-    this.elements = [];
-    for (var element of json.elements) {
-      switch (element.type) {
-        case Text.name:
-          this.elements.push(new Text().fromJSON(element));
-      }
+    this.elements = {};
+    this.elementOrder = json.elementOrder;
+
+    for (var id of json.elementOrder) {
+      this.elements[id] = ElementTypeService.deserializeElement(json.elements[id]);
     }
-    
+
     return this;
   }
 

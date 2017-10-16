@@ -26,7 +26,7 @@ export class ActiveTabComponent implements OnInit, AfterViewInit, AfterViewCheck
 
   areaHeight: number;
 
-  elements: ElementBase[];
+  elementOrder: string[];
 
   constructor(
     private sheetActionService: SheetActionService,
@@ -97,7 +97,7 @@ export class ActiveTabComponent implements OnInit, AfterViewInit, AfterViewCheck
   }
 
   onSelectTab() {
-    this.elements = this.sheetStoreService.selectedTab.elements;
+    this.elementOrder = this.sheetStoreService.selectedTab.elementOrder;
   }
 
 }

@@ -1,6 +1,6 @@
-import { Directive, Input, ViewContainerRef, OnInit, ComponentFactoryResolver } from '@angular/core';
+import { Directive, Input, ViewContainerRef, OnInit, ComponentFactoryResolver, ComponentFactory, ComponentRef } from '@angular/core';
 import { ElementBase } from "app/sheet/elements";
-import { ElementService } from "app/sheet/services";
+import { ElementTypeService, SheetStoreService } from "app/sheet/services";
 import { ElementComponent } from "app/sheet/components/active-tab/element";
 
 @Directive({
@@ -9,19 +9,20 @@ import { ElementComponent } from "app/sheet/components/active-tab/element";
 export class ElementDirective implements OnInit {
 
   @Input()
-  element: ElementBase;
+  elementId: string;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private elementService: ElementService
+    private sheetStoreService: SheetStoreService
   ) { }
 
   ngOnInit(): void {
-    var componentConstructor: any = this.elementService.getElementComponentConstructor(this.element);
-    var componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentConstructor);
-    var ComponentRef = this.viewContainerRef.createComponent(componentFactory);
-    (<ElementComponent>ComponentRef.instance).element = this.element;
+    var element: ElementBase = this.sheetStoreService.selectedTab.elements[this.elementId];
+    var componentConstructor: any = ElementTypeService.getElementComponentConstructor(element);
+    var componentFactory: ComponentFactory<{}> = this.componentFactoryResolver.resolveComponentFactory(componentConstructor);
+    var ComponentRef: ComponentRef<{}> = this.viewContainerRef.createComponent(componentFactory);
+    (<ElementComponent>ComponentRef.instance).element = element;
   }
 
 }

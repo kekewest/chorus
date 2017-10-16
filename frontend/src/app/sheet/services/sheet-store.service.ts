@@ -30,6 +30,9 @@ export class SheetStoreService extends Emitter<Payload> {
           case SheetActionService.SELECT_TAB_EVENT:
             this.selectTab(<SheetAction.SelectTab>payload.data);
             break;
+          case SheetActionService.CLICK_SHEET_EVENT:
+            this.createElement(<SheetAction.ClickSheet>payload.data);
+            break;
         }
       }
     );
@@ -74,6 +77,10 @@ export class SheetStoreService extends Emitter<Payload> {
   private selectTab(action: SheetAction.SelectTab) {
     this._sheet.selectedTabName = action.tabName;
     this.emit({ eventType: SheetStoreService.SELECT_TAB_EVENT });
+  }
+
+  private createElement(action: SheetAction.ClickSheet) {
+    
   }
 
 }
