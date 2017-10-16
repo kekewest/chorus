@@ -4,3 +4,4 @@ export * from './sheet-action.service';
 export * from './sheet-action';
 export * from './edit-command-store.service';
 export * from './concurrent-edit.service';
+export * from './element.service';

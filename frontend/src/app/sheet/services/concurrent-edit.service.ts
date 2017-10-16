@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { _ } from "app";
 import { SheetDispatcherService, SheetActionService, SheetStoreService } from "app/sheet/services";
 import { Sheet } from "app/sheet";
+import { Text } from "app/sheet/elements";
 
 @Injectable()
 export class ConcurrentEditService {
@@ -62,6 +63,12 @@ export class ConcurrentEditService {
     // });
 
     var testSheet: Sheet = new Sheet().init("test sheet");
+    var textEl = new Text();
+    textEl.posX = 200;
+    textEl.posY = 100;
+    textEl.text = "TextText";
+    testSheet.tabs[testSheet.selectedTabName].elements = [textEl];
+
     setTimeout(() => {
       this.sheetActionService.setSheet(testSheet);
     }, 500);

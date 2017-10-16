@@ -10,7 +10,8 @@ export class SheetStoreService extends Emitter<Payload> {
 
   static EVENT_PREFIX: string = "SheetStoreService.";
   static LOAD_SHEET_EVENT: string = SheetStoreService.EVENT_PREFIX + "load-sheet";
-
+  static SELECT_TAB_EVENT: string = SheetStoreService.EVENT_PREFIX + "select-tab";
+  
   sheetDispatcherId: string;
 
   private _sheet: Sheet;
@@ -72,6 +73,7 @@ export class SheetStoreService extends Emitter<Payload> {
 
   private selectTab(action: SheetAction.SelectTab) {
     this._sheet.selectedTabName = action.tabName;
+    this.emit({ eventType: SheetStoreService.SELECT_TAB_EVENT });
   }
 
 }

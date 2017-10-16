@@ -10,4 +10,9 @@ export module SheetAction {
     sheet: Sheet;
   }
 
+  export interface ClickSheet {
+    pos: {x: number, y: number};
+    mouseEvent: MouseEvent;
+  }
+
 }

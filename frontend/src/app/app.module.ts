@@ -30,6 +30,8 @@ import { EmptyPipe } from './common/pipes/empty.pipe';
 import { FilesDashboardBarComponent } from './files/components/files-main-col/files-dashboard-bar/files-dashboard-bar.component';
 import { FilenameValidator } from "app/common/validators";
 import { LoadingMaskComponent } from './common/components/loading-mask/loading-mask.component';
+import { ElementDirective } from './sheet/directives/element.directive';
+import { TextComponent } from './sheet/components/active-tab/element/text/text.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,11 @@ import { LoadingMaskComponent } from './common/components/loading-mask/loading-m
     EmptyPipe,
     FilesDashboardBarComponent,
     LoadingMaskComponent,
+    ElementDirective,
+    TextComponent
+  ],
+  entryComponents: [
+    TextComponent
   ],
   imports: [
     BrowserModule,
