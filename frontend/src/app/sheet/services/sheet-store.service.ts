@@ -42,6 +42,10 @@ export class SheetStoreService extends Emitter<Payload> {
     return this._sheet;
   }
 
+  get tabs(): { [tabName: string]: Tab; } {
+    return this._sheet.tabs;
+  }
+
   get tabOrder(): string[] {
     return this._sheet.tabOrder;
   }
@@ -80,6 +84,11 @@ export class SheetStoreService extends Emitter<Payload> {
   }
 
   private createElement(action: SheetAction.ClickSheet) {
+    //
+    //
+    // TODO: クリックされた時にエレメントを追加する挙動を実装する
+    //
+    //
     
   }
 

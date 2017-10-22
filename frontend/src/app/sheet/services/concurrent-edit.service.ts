@@ -18,7 +18,7 @@ export class ConcurrentEditService {
   static API_ROOT: string = "/api/concurrent-edit/";
 
   static EVENT_PREFIX: string = ConcurrentEditService.name + ".";
-  static EDIT_COMMAND_EVENT_PREFIX: string = ConcurrentEditService.EVENT_PREFIX + "edit-command-event.";
+  static EDIT_COMMAND_EVENT: string = ConcurrentEditService.EVENT_PREFIX + "edit-command-event";
 
   private socket: WebSocket;
   private stompClient: Client;
@@ -89,18 +89,16 @@ export class ConcurrentEditService {
     // });
   }
 
-  sendEditCommand(commandName: string, commandJsonStr: string) {
+  sendEditCommand(commandJsonStr: string) {
     if (this.isEditingOnlyMyself()) {
       this.sheetDispatcherService.emit({
-        eventType: ConcurrentEditService.EDIT_COMMAND_EVENT_PREFIX + commandName,
+        eventType: ConcurrentEditService.EDIT_COMMAND_EVENT,
         data: commandJsonStr
       });
       return;
     }
 
-    var headers: {} = {};
-    headers["commandName"] = commandName;
-    this.stompClient.send(ConcurrentEditService.API_ROOT + "send-edit-command/" + this.sheetId, headers, commandJsonStr);
+    this.stompClient.send(ConcurrentEditService.API_ROOT + "send-edit-command/" + this.sheetId, {}, commandJsonStr);
   }
 
   private isEditingOnlyMyself(): boolean {
@@ -135,7 +133,7 @@ export class ConcurrentEditService {
 
   private onInvokeEditCommand(message: Message) {
     this.sheetDispatcherService.emit({
-      eventType: ConcurrentEditService.EDIT_COMMAND_EVENT_PREFIX + message.headers["commandName"],
+      eventType: ConcurrentEditService.EDIT_COMMAND_EVENT,
       data: message.body
     });
   }

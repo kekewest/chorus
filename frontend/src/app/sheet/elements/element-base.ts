@@ -1,15 +1,14 @@
 
 import { Serializable } from "app/common/utils";
 
-export class ElementBase implements Serializable {
+export abstract class ElementBase implements Serializable {
+
+  abstract elementName: string;
 
   constructor(
-    public type?: string,
     public posX?: number,
     public posY?: number
-  ) {
-    this.type = this.constructor.name;
-  }
+  ) { }
 
   toJSON(): ElementBase {
     return this;

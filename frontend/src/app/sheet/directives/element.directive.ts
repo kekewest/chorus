@@ -14,12 +14,13 @@ export class ElementDirective implements OnInit {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private sheetStoreService: SheetStoreService
+    private sheetStoreService: SheetStoreService,
+    private elementTypeService: ElementTypeService
   ) { }
 
   ngOnInit(): void {
     var element: ElementBase = this.sheetStoreService.selectedTab.elements[this.elementId];
-    var componentConstructor: any = ElementTypeService.getElementComponentConstructor(element);
+    var componentConstructor: any = this.elementTypeService.getElementComponentConstructor(element.elementName);
     var componentFactory: ComponentFactory<{}> = this.componentFactoryResolver.resolveComponentFactory(componentConstructor);
     var ComponentRef: ComponentRef<{}> = this.viewContainerRef.createComponent(componentFactory);
     (<ElementComponent>ComponentRef.instance).element = element;

@@ -4,6 +4,8 @@ import { ElementBase } from "app/sheet/elements";
 
 export class Text extends ElementBase {
 
+  elementName: string = "Text";
+
   constructor(
     public text?: string,
   ) {

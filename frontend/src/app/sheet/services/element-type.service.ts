@@ -9,24 +9,24 @@ export class ElementTypeService {
   private static elementConstructors: { [name: string]: any } = {};
 
   constructor() {
-    ElementTypeService.addElementComponentConstructor(Text, TextComponent);
-    ElementTypeService.addElementConstructor(Text);
+    this.addElementComponentConstructor("Text", TextComponent);
+    this.addElementConstructor("Text", Text);
   }
 
-  private static addElementComponentConstructor(elementConstructor: any, elementComponentConstructor: any) {
-    ElementTypeService.elementComponentConstructors[elementConstructor.name] = elementComponentConstructor;
+  private addElementComponentConstructor(name: string, elementComponentConstructor: any) {
+    ElementTypeService.elementComponentConstructors[name] = elementComponentConstructor;
   }
 
-  private static addElementConstructor(elementConstructor: any) {
-    ElementTypeService.elementConstructors[elementConstructor.name] = elementConstructor;
+  private addElementConstructor(name: string, elementConstructor: any) {
+    ElementTypeService.elementConstructors[name] = elementConstructor;
   }
 
-  static getElementComponentConstructor(element: ElementBase): any {
-    return ElementTypeService.elementComponentConstructors[element.type];
+  getElementComponentConstructor(name: string): any {
+    return ElementTypeService.elementComponentConstructors[name];
   }
 
   static deserializeElement(elementJson: any): ElementBase {
-    var elConstructor: any = ElementTypeService.elementConstructors[elementJson.type];
+    var elConstructor: any = ElementTypeService.elementConstructors[elementJson.elementName];
     return (<ElementBase> new elConstructor()).fromJSON(elementJson);
   }
 

@@ -25,11 +25,10 @@ public class EditCommandService {
         commandCounts.remove(sheetId);
     }
 
-    public void broadcastEditCommand(Long sheetId, String commandName, String commandJsonStr) {
+    public void broadcastEditCommand(Long sheetId, String commandJsonStr) {
         long count = commandCounts.get(sheetId).incrementAndGet();
         Map<String, Object> headers = new HashMap<>();
         headers.put("event", "invokeEditCommand");
-        headers.put("commandName", commandName);
         headers.put("commandCount", String.valueOf(count));
         simpMessagingTemplate.convertAndSend(
                 "/topic/concurrent-edit/" + String.valueOf(sheetId), commandJsonStr, headers);

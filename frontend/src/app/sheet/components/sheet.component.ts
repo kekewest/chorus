@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Payload } from "app/common/base";
-import { SheetDispatcherService, SheetStoreService, SheetActionService, ConcurrentEditService, EditCommandStoreService, ElementTypeService } from "app/sheet/services";
+import { SheetDispatcherService, SheetStoreService, SheetActionService, ConcurrentEditService, ElementTypeService } from "app/sheet/services";
+import { EditCommandActionService, EditCommandTypeService, EditCommandStoreService } from "app/sheet/services/edit-command";
 
 @Component({
   selector: 'cr-sheet',
@@ -12,7 +13,9 @@ import { SheetDispatcherService, SheetStoreService, SheetActionService, Concurre
     SheetStoreService,
     SheetActionService,
     EditCommandStoreService,
-    ElementTypeService
+    ElementTypeService,
+    EditCommandTypeService,
+    EditCommandActionService
   ]
 })
 export class SheetComponent implements OnInit, OnDestroy {
@@ -23,7 +26,9 @@ export class SheetComponent implements OnInit, OnDestroy {
     private sheetStoreService: SheetStoreService,
     private sheetActionService: SheetActionService,
     private editCommandStoreService: EditCommandStoreService,
-    private elementTypeService: ElementTypeService
+    private elementTypeService: ElementTypeService,
+    private editCommandTypeService: EditCommandTypeService,
+    private editCommandActionService: EditCommandActionService
   ) { }
 
   ngOnInit() {

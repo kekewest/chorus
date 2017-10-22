@@ -54,10 +54,8 @@ public class ConcurrentEditSheetController {
 
     @MessageMapping("send-edit-command/{sheetId}")
     public void sendEditCommand(@DestinationVariable Long sheetId, Message<String> message) {
-        StompHeaderAccessor sha = StompHeaderAccessor.wrap(message);
         editCommandService.broadcastEditCommand(
                 sheetId,
-                sha.getFirstNativeHeader("commandName"),
                 message.getPayload());
     }
 

@@ -1,15 +1,13 @@
 import { Component, OnInit, AfterViewChecked, ElementRef } from '@angular/core';
 import { Payload } from "app/common/base";
 import { SheetStoreService, SheetActionService } from "app/sheet/services";
-import { CreateNewTabActionService } from "app/sheet/services/command-actions/sheet";
+import { EditCommandActionService } from "app/sheet/services/edit-command";
+import { CreateNewTabCommand } from "app/sheet/services/edit-command/sheet";
 
 @Component({
   selector: 'cr-sheet-tabs',
   templateUrl: './sheet-tabs.component.html',
-  styleUrls: ['./sheet-tabs.component.scss'],
-  providers: [
-    CreateNewTabActionService
-  ]
+  styleUrls: ['./sheet-tabs.component.scss']
 })
 export class SheetTabsComponent implements OnInit, AfterViewChecked {
 
@@ -22,7 +20,7 @@ export class SheetTabsComponent implements OnInit, AfterViewChecked {
   constructor(
     private sheetActionService: SheetActionService,
     private sheetStoreService: SheetStoreService,
-    private createNewTabActionService: CreateNewTabActionService,
+    private editCommandActionService: EditCommandActionService,
     private el: ElementRef
   ) { }
 
@@ -53,7 +51,7 @@ export class SheetTabsComponent implements OnInit, AfterViewChecked {
   }
 
   createNewTab() {
-    this.createNewTabActionService.createNewTab();
+    this.editCommandActionService.invokeEditCommand(new CreateNewTabCommand());
     this._needScroll = true;
   }
 
