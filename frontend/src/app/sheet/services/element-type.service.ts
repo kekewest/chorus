@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ElementBase, Text } from "app/sheet/elements";
+import { ElementBase, Text } from "app/sheet/element";
 import { TextComponent } from "app/sheet/components/active-tab/element";
 
 @Injectable()

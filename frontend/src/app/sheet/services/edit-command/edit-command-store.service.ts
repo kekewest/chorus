@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Payload } from "app/common/base";
 import { _ } from "app";
-import { EditCommand, EditCommandActionService } from "app/sheet/services/edit-command";
+import { EditCommandActionService } from "app/sheet/services/edit-command";
 import { SheetDispatcherService, SheetStoreService, SheetActionService } from "app/sheet/services";
+import { EditCommand } from "app/sheet/services/edit-command/command";
 
 @Injectable()
 export class EditCommandStoreService {

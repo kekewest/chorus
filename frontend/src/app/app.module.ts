@@ -13,9 +13,8 @@ import { SheetComponent } from './sheet/components/sheet.component';
 import { ActiveTabComponent } from './sheet/components/active-tab/active-tab.component';
 import { SheetTabsComponent } from './sheet/components/sheet-tabs/sheet-tabs.component';
 import { SheetEditComponent } from './sheet/components/sheet-edit/sheet-edit.component';
-import { RedoUndoComponent } from './sheet/components/sheet-edit/sheet-edit-home/redo-undo/redo-undo.component';
-import { SheetEditHomeComponent } from './sheet/components/sheet-edit/sheet-edit-home/sheet-edit-home.component';
-import { FontStyleComponent } from './sheet/components/sheet-edit/sheet-edit-home/font-style/font-style.component';
+import { RedoUndoComponent } from './sheet/components/sheet-edit/redo-undo/redo-undo.component';
+import { TextControlComponent } from './sheet/components/sheet-edit/element-control/text/text-control.component';
 import { LoginComponent } from './login/components/login.component';
 import { RootComponent } from './root/components/root.component';
 import { FilesComponent } from './files/components/files.component';
@@ -41,8 +40,7 @@ import { TextComponent } from './sheet/components/active-tab/element/text/text.c
     SheetTabsComponent,
     SheetEditComponent,
     RedoUndoComponent,
-    SheetEditHomeComponent,
-    FontStyleComponent,
+    TextControlComponent,
     LoginComponent,
     RootComponent,
     FilesComponent,

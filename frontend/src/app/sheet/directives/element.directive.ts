@@ -1,5 +1,5 @@
 import { Directive, Input, ViewContainerRef, OnInit, ComponentFactoryResolver, ComponentFactory, ComponentRef } from '@angular/core';
-import { ElementBase } from "app/sheet/elements";
+import { ElementBase } from "app/sheet/element";
 import { ElementTypeService, SheetStoreService } from "app/sheet/services";
 import { ElementComponent } from "app/sheet/components/active-tab/element";
 

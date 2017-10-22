@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateNewTabCommand } from "app/sheet/services/edit-command/sheet";
+import { CreateNewTabCommand } from "app/sheet/services/edit-command/command/sheet";
 
 @Injectable()
 export class EditCommandTypeService {

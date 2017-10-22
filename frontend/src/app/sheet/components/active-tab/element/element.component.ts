@@ -1,4 +1,4 @@
-import { ElementBase } from "app/sheet/elements";
+import { ElementBase } from "app/sheet/element";
 
 export interface ElementComponent {
 

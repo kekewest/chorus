@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { _ } from "app";
 import { SheetDispatcherService, SheetActionService, SheetStoreService } from "app/sheet/services";
 import { Sheet } from "app/sheet";
-import { Text } from "app/sheet/elements";
+import { Text } from "app/sheet/element";
 import { UUID } from "app/common/utils";
 
 @Injectable()

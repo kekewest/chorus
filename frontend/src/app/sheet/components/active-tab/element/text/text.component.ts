@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementComponent } from "app/sheet/components/active-tab/element";
-import { Text } from "app/sheet/elements";
+import { Text } from "app/sheet/element";
 
 @Component({
   selector: 'cr-text',

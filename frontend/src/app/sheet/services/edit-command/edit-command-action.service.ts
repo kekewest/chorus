@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { Serializable } from "app/common/utils";
 import { Payload } from "app/common/base";
 import { SheetActionService, SheetDispatcherService, ConcurrentEditService, SheetStoreService } from "app/sheet/services";
-import { EditCommandTypeService, EditCommand } from "app/sheet/services/edit-command";
+import { EditCommandTypeService } from "app/sheet/services/edit-command";
+import { EditCommand } from "app/sheet/services/edit-command/command";
 
 @Injectable()
 export class EditCommandActionService {

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, Input, HostListener } from '@angular/core';
 import { Payload } from "app/common/base";
 import { SheetActionService, SheetStoreService } from "app/sheet/services";
-import { ElementBase } from "app/sheet/elements";
+import { ElementBase } from "app/sheet/element";
 
 @Component({
   selector: 'cr-active-tab',
