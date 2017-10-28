@@ -15,4 +15,8 @@ export module SheetAction {
     mouseEvent: MouseEvent;
   }
 
+  export interface ChangeSelectedElement {
+    elememntConstructor: any;
+  }
+
 }

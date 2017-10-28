@@ -11,6 +11,7 @@ export class SheetActionService {
   static CLICK_SHEET_EVENT: string = SheetActionService.EVENT_PREFIX + "click-sheet";  
   static UNDO_EVENT: string = SheetActionService.EVENT_PREFIX + "undo";
   static REDO_EVENT: string = SheetActionService.EVENT_PREFIX + "redo";
+  static CHANGE_SELECTED_ELEMENT_EVENT: string = SheetActionService.EVENT_PREFIX + "change-selected-element";
 
   constructor(private sheetDispatcherService: SheetDispatcherService) { }
 

@@ -7,7 +7,7 @@ export class Text extends ElementBase {
   elementName: string = "Text";
 
   constructor(
-    public text?: string,
+    public text: string = ""
   ) {
     super();
   }
@@ -15,7 +15,7 @@ export class Text extends ElementBase {
   fromJSON(json: any): Text {
     if (!json) {
       return null;
-    }  
+    }
     super.fromJSON(json);
 
     this.text = json.text;

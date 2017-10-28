@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Emitter, Payload } from "app/common/base";
 import { ChorusDispatcherService } from "app/common/services";
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
-import { SheetDispatcherService, SheetActionService, SheetAction } from "app/sheet/services";
+import { SheetDispatcherService, SheetActionService, SheetAction, ElementTypeService } from "app/sheet/services";
 import { Sheet, Tab } from "app/sheet";
+import { ElementBase } from "app/sheet/element";
+import { UUID } from "app/common/utils";
 
 @Injectable()
 export class SheetStoreService extends Emitter<Payload> {
@@ -16,9 +18,14 @@ export class SheetStoreService extends Emitter<Payload> {
 
   private _sheet: Sheet;
 
+  private _selectedElementConstructor: any;
+
+  private _focusElementId: string;
+
   constructor(
     private chorusDispatcherService: ChorusDispatcherService,
-    private sheetDispatcherService: SheetDispatcherService
+    private sheetDispatcherService: SheetDispatcherService,
+    private elementTypeService: ElementTypeService
   ) {
     super();
     this.sheetDispatcherId = this.sheetDispatcherService.register(
@@ -33,9 +40,14 @@ export class SheetStoreService extends Emitter<Payload> {
           case SheetActionService.CLICK_SHEET_EVENT:
             this.createElement(<SheetAction.ClickSheet>payload.data);
             break;
+          case SheetActionService.CHANGE_SELECTED_ELEMENT_EVENT:
+            this.changeSelectedElement(<SheetAction.ChangeSelectedElement>payload.data);
+            break;
         }
       }
     );
+
+    this._selectedElementConstructor = this.elementTypeService.getDefaultElementConstructor();
   }
 
   get sheet(): Sheet {
@@ -56,6 +68,10 @@ export class SheetStoreService extends Emitter<Payload> {
 
   get selectedTab(): Tab {
     return this._sheet.tabs[this.selectedTabName];
+  }
+
+  get focusElementId(): string {
+    return this._focusElementId;
   }
 
   isLoadedSheet(): boolean {
@@ -83,13 +99,17 @@ export class SheetStoreService extends Emitter<Payload> {
     this.emit({ eventType: SheetStoreService.SELECT_TAB_EVENT });
   }
 
+  private changeSelectedElement(action: SheetAction.ChangeSelectedElement) {
+    this._selectedElementConstructor = action.elememntConstructor;
+  }
+
   private createElement(action: SheetAction.ClickSheet) {
-    //
-    //
-    // TODO: クリックされた時にエレメントを追加する挙動を実装する
-    //
-    //
-    
+    this._focusElementId = UUID.v4();
+    var element: ElementBase = new this._selectedElementConstructor();
+    element.posX = action.pos.x;
+    element.posY = action.pos.y;
+    this.selectedTab.elementOrder.push(this._focusElementId);
+    this.selectedTab.elements[this._focusElementId] = element;
   }
 
 }

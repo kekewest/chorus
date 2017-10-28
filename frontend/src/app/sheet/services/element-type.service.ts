@@ -25,6 +25,10 @@ export class ElementTypeService {
     return ElementTypeService.elementComponentConstructors[name];
   }
 
+  getDefaultElementConstructor(): any {
+    return Text;
+  }
+
   static deserializeElement(elementJson: any): ElementBase {
     var elConstructor: any = ElementTypeService.elementConstructors[elementJson.elementName];
     return (<ElementBase> new elConstructor()).fromJSON(elementJson);
