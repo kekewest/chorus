@@ -5,8 +5,8 @@ export abstract class InitCommand extends EditCommand {
 
   constructor(
     private _elementId?: string,
-    public posX?: number,
-    public posY?: number
+    private _posX?: number,
+    private _posY?: number
   ) {
     super();
   }
@@ -15,14 +15,22 @@ export abstract class InitCommand extends EditCommand {
     return this._elementId;
   }
 
+  get posX(): number {
+    return this._posX;
+  }
+
+  get posY(): number {
+    return this._posY;
+  }
+
   fromJSON(json: any): EditCommand {
     if (!json) {
       return null;
     }
 
     this._elementId = json._elementId;
-    this.posX = json.posX;
-    this.posY = json.posY;
+    this._posX = json._posX;
+    this._posY = json._posY;
     
     return this;
   }
