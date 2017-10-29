@@ -3,9 +3,8 @@ import { UUID } from "app/common/utils/uuid";
 
 export abstract class InitCommand extends EditCommand {
 
-  private _elementId: string = UUID.v4();
-
   constructor(
+    private _elementId?: string,
     public posX?: number,
     public posY?: number
   ) {

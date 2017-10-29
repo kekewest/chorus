@@ -11,6 +11,7 @@ import { Sheet } from "app/sheet/sheet";
 import { Tab } from "app/sheet/tab";
 import { Emitter, Payload } from "app/common/base/emitter";
 import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { UUID } from "app/common/utils/uuid";
 
 @Injectable()
 export class SheetStoreService extends Emitter<Payload> {
@@ -21,14 +22,13 @@ export class SheetStoreService extends Emitter<Payload> {
   
   sheetDispatcherId: string;
 
-  focusElementId: string;
-
   private _sheet: Sheet;
 
-  private initCommandConstructor: any;
+  private _focusElementId: string;
+
+  private _initCommandConstructor: any;
 
   constructor(
-    // private editCommandActionService: EditCommandActionService,    
     private chorusDispatcherService: ChorusDispatcherService,
     private sheetDispatcherService: SheetDispatcherService,
     private editCommandTypeService: EditCommandTypeService
@@ -43,17 +43,17 @@ export class SheetStoreService extends Emitter<Payload> {
           case SheetActionService.SELECT_TAB_EVENT:
             this.selectTab(<SheetAction.SelectTab>payload.data);
             break;
-          case SheetActionService.CLICK_SHEET_EVENT:
-            this.createElement(<SheetAction.ClickSheet>payload.data);
-            break;
           case SheetActionService.CHANGE_INIT_COMMAND_EVENT:
             this.changeInitCommand(<SheetAction.ChangeInitCommand>payload.data);
+            break;
+          case SheetActionService.CLICK_SHEET_EVENT:
+            this.changeFocusElementId(<SheetAction.ClickSheet>payload.data);
             break;
         }
       }
     );
 
-    this.initCommandConstructor = this.editCommandTypeService.getDefaultInitCommandConstructor();
+    this._initCommandConstructor = this.editCommandTypeService.getDefaultInitCommandConstructor();
   }
 
   get sheet(): Sheet {
@@ -74,6 +74,14 @@ export class SheetStoreService extends Emitter<Payload> {
 
   get selectedTab(): Tab {
     return this._sheet.tabs[this.selectedTabName];
+  }
+
+  get focusElementId(): string {
+    return this._focusElementId;
+  }
+
+  get initCommandConstructor(): any {
+    return this._initCommandConstructor;
   }
 
   isLoadedSheet(): boolean {
@@ -102,13 +110,11 @@ export class SheetStoreService extends Emitter<Payload> {
   }
 
   private changeInitCommand(action: SheetAction.ChangeInitCommand) {
-    this.initCommandConstructor = action.initCommandConstructor;
+    this._initCommandConstructor = action.initCommandConstructor;
   }
 
-  private createElement(action: SheetAction.ClickSheet) {
-    var initCommand: InitCommand = new this.initCommandConstructor(action.pos.x, action.pos.y);
-    this.focusElementId = initCommand.elementId;
-    // this.editCommandActionService.invokeEditCommand(initCommand);
+  private changeFocusElementId(action: SheetAction.ClickSheet) {
+    this._focusElementId = UUID.v4();
   }
 
 }

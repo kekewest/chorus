@@ -4,6 +4,10 @@ import { EditCommand } from "app/sheet/services/edit-command/command/edit-comman
 import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
 import { ConcurrentEditService } from "app/sheet/services/concurrent-edit.service";
 import { Payload } from "app/common/base/emitter";
+import { SheetAction } from "app/sheet/services/sheet-action";
+import { InitCommand } from "app/sheet/services/edit-command/command/init-command";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
 
 @Injectable()
 export class EditCommandActionService {
@@ -13,13 +17,19 @@ export class EditCommandActionService {
 
   constructor(
     private sheetDispatcherService: SheetDispatcherService,
+    private sheetStoreService: SheetStoreService,
     private concurrentEditService: ConcurrentEditService,
     private editCommandTypeService: EditCommandTypeService
   ) {
     this.sheetDispatcherService.register(
       (payload: Payload) => {
-        if (payload.eventType === ConcurrentEditService.EDIT_COMMAND_EVENT) {
-          this.emitEditCommand(<string>payload.data);
+        switch (payload.eventType) {
+          case ConcurrentEditService.EDIT_COMMAND_EVENT:
+            this.emitEditCommand(<string>payload.data);
+            break;
+          case SheetActionService.CLICK_SHEET_EVENT:
+            this.createElement(<SheetAction.ClickSheet>payload.data);
+            break;
         }
       }
     );
@@ -39,6 +49,12 @@ export class EditCommandActionService {
     var editCommandJson: any = JSON.parse(editCommandJsonStr);
     var constructor: any = this.editCommandTypeService.getEditCommandConstructor(editCommandJson.commandName);
     return (<EditCommand> new constructor()).fromJSON(editCommandJson);
+  }
+
+  private createElement(action: SheetAction.ClickSheet) {
+    this.sheetDispatcherService.waitFor([this.sheetStoreService.sheetDispatcherId]);
+    var initCommand: InitCommand = new this.sheetStoreService.initCommandConstructor(this.sheetStoreService.focusElementId, action.pos.x, action.pos.y);
+    this.invokeEditCommand(initCommand);
   }
 
 }
