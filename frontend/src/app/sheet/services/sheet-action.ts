@@ -1,4 +1,4 @@
-import { Sheet } from "app/sheet";
+import { Sheet } from "app/sheet/sheet";
 
 export module SheetAction {
 
@@ -15,8 +15,8 @@ export module SheetAction {
     mouseEvent: MouseEvent;
   }
 
-  export interface ChangeSelectedElement {
-    elememntConstructor: any;
+  export interface ChangeInitCommand {
+    initCommandConstructor: any;
   }
 
 }

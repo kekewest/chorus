@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
-import { Emitter, Payload } from "app/common/base";
-import { ChorusDispatcherService, MeActionService, MeAction } from "app/common/services";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
+import { Emitter, Payload } from "app/common/base/emitter";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { MeActionService } from "app/common/services/action/me-action.service";
+import { MeAction } from "app/common/services/action/me-action";
 
 @Injectable()
 export class MeStoreService extends Emitter<Payload> implements CanActivate {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SheetActionService } from "app/sheet/services";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
 
 @Component({
   selector: 'cr-redo-undo',

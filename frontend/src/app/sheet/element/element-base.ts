@@ -1,5 +1,4 @@
-
-import { Serializable } from "app/common/utils";
+import { Serializable } from "app/common/utils/serializable";
 
 export abstract class ElementBase implements Serializable {
 

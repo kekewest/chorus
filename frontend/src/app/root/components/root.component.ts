@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, ChorusDispatcherService, MeActionService, MeStoreService, FilesActionService, ErrorActionService, FilesStoreService } from "app/common/services";
-import { FilenameValidator } from "app/common/validators";
+import { ApiService } from "app/common/services/api.service";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { ErrorActionService } from "app/common/services/action/error-action.service";
+import { MeActionService } from "app/common/services/action/me-action.service";
+import { MeStoreService } from "app/common/services/store/me-store.service";
+import { FilesActionService } from "app/common/services/action/files-action.service";
+import { FilesStoreService } from "app/common/services/store/files-store.service";
+import { FilenameValidator } from "app/common/validators/filename";
 
 @Component({
   selector: 'wf-root',

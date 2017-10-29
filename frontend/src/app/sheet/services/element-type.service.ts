@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ElementBase, Text } from "app/sheet/element";
-import { TextComponent } from "app/sheet/components/active-tab/element";
+import { ElementBase } from "app/sheet/element/element-base";
+import { Text } from "app/sheet/element/text";
+import { TextComponent } from "app/sheet/components/active-tab/element/text/text.component";
 
 @Injectable()
 export class ElementTypeService {

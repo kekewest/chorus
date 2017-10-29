@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, AbstractControl } from "@angular/forms";
 import { _ } from "app";
-import { FilesStoreService, FilesAction } from "app/common/services";
+import { FilesStoreService } from "app/common/services/store/files-store.service";
+import { FilesAction } from "app/common/services/action/files-action";
 
 @Injectable()
 export class FilenameValidator {

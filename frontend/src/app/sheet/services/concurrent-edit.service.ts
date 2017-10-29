@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Client, over, Message } from "stompjs";
 import { ActivatedRoute, Params } from "@angular/router";
 import { _ } from "app";
-import { SheetDispatcherService, SheetActionService, SheetStoreService } from "app/sheet/services";
-import { Sheet } from "app/sheet";
-import { Text } from "app/sheet/element";
-import { UUID } from "app/common/utils";
+import { Text } from "app/sheet/element/Text";
+import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
+import { Sheet } from "app/sheet/sheet";
+import { UUID } from "app/common/utils/uuid";
 
 @Injectable()
 export class ConcurrentEditService {

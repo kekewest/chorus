@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CreateNewTabCommand } from "app/sheet/services/edit-command/command/sheet";
+import { CreateTextCommand } from "app/sheet/services/edit-command/command/text/create-text-command";
+import { CreateNewTabCommand } from "app/sheet/services/edit-command/command/sheet/create-new-tab-command";
 
 @Injectable()
 export class EditCommandTypeService {
@@ -8,6 +9,7 @@ export class EditCommandTypeService {
 
   constructor() { 
     this.addEditCommandConstructor("CreateNewTabCommand", CreateNewTabCommand);
+    this.addEditCommandConstructor("CreateTextCommand", CreateTextCommand);
   }
 
   private addEditCommandConstructor(name: string, editCommandConstructor: any) {
@@ -16,6 +18,10 @@ export class EditCommandTypeService {
 
   getEditCommandConstructor(name: string): any {
     return this.editCommandConstructors[name];
+  }
+
+  getDefaultInitCommandConstructor(): any {
+    return CreateTextCommand;
   }
 
 }

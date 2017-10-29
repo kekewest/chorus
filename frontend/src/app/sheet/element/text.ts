@@ -1,6 +1,4 @@
-
-import { Serializable } from "app/common/utils";
-import { ElementBase } from "app/sheet/element";
+import { ElementBase } from "app/sheet/element/element-base";
 
 export class Text extends ElementBase {
 

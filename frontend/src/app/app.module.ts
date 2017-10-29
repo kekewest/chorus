@@ -7,8 +7,6 @@ import { TabsModule, BsDropdownModule, ModalModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from "app/app-routing.module";
 
-import { ApiService, ChorusDispatcherService, MeActionService, MeStoreService, FilesActionService, ErrorActionService, FilesStoreService } from "app/common/services";
-
 import { SheetComponent } from './sheet/components/sheet.component';
 import { ActiveTabComponent } from './sheet/components/active-tab/active-tab.component';
 import { SheetTabsComponent } from './sheet/components/sheet-tabs/sheet-tabs.component';
@@ -27,10 +25,17 @@ import { FilesLsComponent } from './files/components/files-main-col/files-ls/fil
 import { MomentPipe } from './common/pipes/moment.pipe';
 import { EmptyPipe } from './common/pipes/empty.pipe';
 import { FilesDashboardBarComponent } from './files/components/files-main-col/files-dashboard-bar/files-dashboard-bar.component';
-import { FilenameValidator } from "app/common/validators";
 import { LoadingMaskComponent } from './common/components/loading-mask/loading-mask.component';
 import { ElementDirective } from './sheet/directives/element.directive';
 import { TextComponent } from './sheet/components/active-tab/element/text/text.component';
+import { ApiService } from "app/common/services/api.service";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { ErrorActionService } from "app/common/services/action/error-action.service";
+import { MeActionService } from "app/common/services/action/me-action.service";
+import { MeStoreService } from "app/common/services/store/me-store.service";
+import { FilesActionService } from "app/common/services/action/files-action.service";
+import { FilesStoreService } from "app/common/services/store/files-store.service";
+import { FilenameValidator } from "app/common/validators/filename";
 
 @NgModule({
   declarations: [

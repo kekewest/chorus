@@ -1,7 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { Payload } from "app/common/base";
-import { SheetDispatcherService, SheetStoreService, SheetActionService, ConcurrentEditService, ElementTypeService } from "app/sheet/services";
-import { EditCommandActionService, EditCommandTypeService, EditCommandStoreService } from "app/sheet/services/edit-command";
+import { EditCommandStoreService } from "app/sheet/services/edit-command/edit-command-store.service";
+import { EditCommandTypeService } from "app/sheet/services/edit-command/edit-command-type.service";
+import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
+import { ConcurrentEditService } from "app/sheet/services/concurrent-edit.service";
+import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { ElementTypeService } from "app/sheet/services/element-type.service";
 
 @Component({
   selector: 'cr-sheet',

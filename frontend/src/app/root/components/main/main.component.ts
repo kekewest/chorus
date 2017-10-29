@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, UrlTree, PRIMARY_OUTLET } from "@angular/router";
-import { MeActionService, MeStoreService } from "app/common/services";
-import { Payload } from "app/common/base";
+import { MeActionService } from "app/common/services/action/me-action.service";
+import { Payload } from "app/common/base/emitter";
+import { MeStoreService } from "app/common/services/store/me-store.service";
 
 @Component({
   selector: 'wf-main',

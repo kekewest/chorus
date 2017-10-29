@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Payload } from "app/common/base";
 import { _ } from "app";
-import { EditCommandActionService } from "app/sheet/services/edit-command";
-import { SheetDispatcherService, SheetStoreService, SheetActionService } from "app/sheet/services";
-import { EditCommand } from "app/sheet/services/edit-command/command";
+import { EditCommand } from "app/sheet/services/edit-command/command/edit-command";
+import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
+import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { Payload } from "app/common/base/emitter";
 
 @Injectable()
 export class EditCommandStoreService {

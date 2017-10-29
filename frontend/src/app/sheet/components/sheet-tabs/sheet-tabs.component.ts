@@ -1,8 +1,9 @@
 import { Component, OnInit, AfterViewChecked, ElementRef } from '@angular/core';
-import { Payload } from "app/common/base";
-import { SheetStoreService, SheetActionService } from "app/sheet/services";
-import { EditCommandActionService } from "app/sheet/services/edit-command";
-import { CreateNewTabCommand } from "app/sheet/services/edit-command/command/sheet";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
+import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
+import { CreateNewTabCommand } from "app/sheet/services/edit-command/command/sheet/create-new-tab-command";
+import { Payload } from "app/common/base/emitter";
 
 @Component({
   selector: 'cr-sheet-tabs',

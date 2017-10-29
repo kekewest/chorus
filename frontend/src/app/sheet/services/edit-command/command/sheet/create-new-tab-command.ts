@@ -1,6 +1,6 @@
 import { _ } from "app";
-import { EditCommand } from "app/sheet/services/edit-command/command";
-import { Tab } from "app/sheet";
+import { EditCommand } from "app/sheet/services/edit-command/command/edit-command";
+import { Tab } from "app/sheet/tab";
 
 export class CreateNewTabCommand extends EditCommand {
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, HostBinding, Input } from '@angular/core';
-import { ChorusDispatcherService } from "app/common/services";
-import { Payload } from "app/common/base";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { Payload } from "app/common/base/emitter";
 
 export interface UpdateStatusEvent {
     name: string;

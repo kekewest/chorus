@@ -1,8 +1,11 @@
 import { Directive, Input, ViewContainerRef, OnInit, ComponentFactoryResolver, ComponentFactory, ComponentRef } from '@angular/core';
-import { ElementBase } from "app/sheet/element";
-import { ElementTypeService, SheetStoreService, SheetActionService, SheetDispatcherService } from "app/sheet/services";
-import { ElementComponent } from "app/sheet/components/active-tab/element";
-import { EditCommandActionService } from "app/sheet/services/edit-command";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
+import { ElementTypeService } from "app/sheet/services/element-type.service";
+import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
+import { ElementComponent } from "app/sheet/components/active-tab/element/element.component";
+import { ElementBase } from "app/sheet/element/element-base";
 
 @Directive({
   selector: '[crElement]'

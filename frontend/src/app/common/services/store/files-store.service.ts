@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ChorusDispatcherService, FilesActionService, FilesAction } from "app/common/services";
-import { Payload, Emitter } from "app/common/base";
 import { ActivatedRoute, Params } from "@angular/router";
 import {s, _ } from "app";
+import { FilesAction } from "app/common/services/action/files-action";
+import { Payload, Emitter } from "app/common/base/emitter";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { FilesActionService } from "app/common/services/action/files-action.service";
 
 @Injectable()
 export class FilesStoreService extends Emitter<Payload> {

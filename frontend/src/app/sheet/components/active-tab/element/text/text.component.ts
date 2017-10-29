@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { ElementComponent } from "app/sheet/components/active-tab/element";
-import { Text } from "app/sheet/element";
 import { FormControl } from "@angular/forms";
-import { SheetStoreService, ElementTypeService } from "app/sheet/services";
+import { ElementComponent } from "app/sheet/components/active-tab/element/element.component";
+import { Text } from "app/sheet/element/text";
 
 @Component({
   selector: 'cr-text',

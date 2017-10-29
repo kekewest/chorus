@@ -1,5 +1,6 @@
-import { Serializable } from "app/common/utils";
-import { SheetActionService, SheetStoreService } from "app/sheet/services";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { SheetStoreService } from "app/sheet/services/sheet-store.service";
+import { Serializable } from "app/common/utils/serializable";
 
 export abstract class EditCommand implements Serializable {
   
@@ -7,7 +8,7 @@ export abstract class EditCommand implements Serializable {
   
     protected _sheetActionService: SheetActionService;
     protected _sheetStoreService: SheetStoreService;
-  
+
     set sheetStoreService(sheetStoreService: SheetStoreService) {
       this._sheetStoreService = sheetStoreService;
     }

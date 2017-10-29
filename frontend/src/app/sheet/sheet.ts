@@ -1,7 +1,7 @@
 
-import { Serializable } from "app/common/utils";
-import { Tab } from "app/sheet";
+import { Tab } from "app/sheet/tab";
 import { _ } from "app";
+import { Serializable } from "app/common/utils/serializable";
 
 export class Sheet implements Serializable {
 

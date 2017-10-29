@@ -1,10 +1,11 @@
 import { Component, OnInit, HostBinding, ViewChild, ElementRef } from '@angular/core';
-import { FilesStoreService, FilesActionService } from "app/common/services";
-import { Payload } from "app/common/base";
 import { ModalDirective } from "ngx-bootstrap";
 import { FormGroup, FormBuilder, Validators, AbstractControl } from "@angular/forms";
 import { _ } from "app";
-import { FilenameValidator } from "app/common/validators";
+import { FilesActionService } from "app/common/services/action/files-action.service";
+import { FilesStoreService } from "app/common/services/store/files-store.service";
+import { FilenameValidator } from "app/common/validators/filename";
+import { Payload } from "app/common/base/emitter";
 
 @Component({
   selector: 'wf-files-dashboard-bar',

@@ -1,7 +1,8 @@
 
-import { Serializable } from "app/common/utils";
-import { ElementBase, Text } from "app/sheet/element";
-import { ElementTypeService } from "app/sheet/services";
+import { ElementBase } from "app/sheet/element/element-base";
+import { Text } from "app/sheet/element/text";
+import { ElementTypeService } from "app/sheet/services/element-type.service";
+import { Serializable } from "app/common/utils/serializable";
 
 export class Tab implements Serializable {
 

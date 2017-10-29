@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
-import { ApiService, ChorusDispatcherService, FilesAction, ErrorActionService } from "app/common/services";
+import { ApiService } from "app/common/services/api.service";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { ErrorActionService } from "app/common/services/action/error-action.service";
+import { FilesAction } from "app/common/services/action/files-action";
 
 @Injectable()
 export class FilesActionService {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MeActionService, MeStoreService } from "app/common/services";
-import { Payload } from "app/common/base";
 import { Router } from "@angular/router";
+import { MeActionService } from "app/common/services/action/me-action.service";
+import { MeStoreService } from "app/common/services/store/me-store.service";
+import { Payload } from "app/common/base/emitter";
 
 @Component({
   selector: 'wf-login',

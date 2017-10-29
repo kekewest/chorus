@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MeStoreService, MeActionService, ChorusDispatcherService } from "app/common/services";
-import { Payload } from "app/common/base";
 import { Router } from "@angular/router";
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { MeActionService } from "app/common/services/action/me-action.service";
+import { MeStoreService } from "app/common/services/store/me-store.service";
+import { Payload } from "app/common/base/emitter";
 
 @Component({
   selector: 'cr-dashboard-header',

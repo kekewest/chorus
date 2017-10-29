@@ -1,9 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { FilesActionService, FilesStoreService, FilesAction, ChorusDispatcherService } from "app/common/services";
-import { Payload } from "app/common/base";
 import { _, moment } from "app";
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
+import { FilesAction } from "app/common/services/action/files-action";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
+import { FilesActionService } from "app/common/services/action/files-action.service";
+import { FilesStoreService } from "app/common/services/store/files-store.service";
+import { Payload } from "app/common/base/emitter";
 
 @Component({
   selector: 'wf-files-ls',

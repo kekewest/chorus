@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Emitter, Payload } from "app/common/base";
+import { Payload, Emitter } from "app/common/base/emitter";
 
 @Injectable()
 export class ChorusDispatcherService  extends Emitter<Payload> {

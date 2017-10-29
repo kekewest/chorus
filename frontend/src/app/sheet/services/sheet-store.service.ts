@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Emitter, Payload } from "app/common/base";
-import { ChorusDispatcherService } from "app/common/services";
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
-import { SheetDispatcherService, SheetActionService, SheetAction, ElementTypeService } from "app/sheet/services";
-import { Sheet, Tab } from "app/sheet";
-import { ElementBase } from "app/sheet/element";
-import { UUID } from "app/common/utils";
+import { ElementBase } from "app/sheet/element/element-base";
+import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
+import { EditCommandTypeService } from "app/sheet/services/edit-command/edit-command-type.service";
+import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
+import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { SheetAction } from "app/sheet/services/sheet-action";
+import { InitCommand } from "app/sheet/services/edit-command/command/init-command";
+import { Sheet } from "app/sheet/sheet";
+import { Tab } from "app/sheet/tab";
+import { Emitter, Payload } from "app/common/base/emitter";
+import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
 
 @Injectable()
 export class SheetStoreService extends Emitter<Payload> {
@@ -16,16 +21,17 @@ export class SheetStoreService extends Emitter<Payload> {
   
   sheetDispatcherId: string;
 
+  focusElementId: string;
+
   private _sheet: Sheet;
 
-  private _selectedElementConstructor: any;
-
-  private _focusElementId: string;
+  private initCommandConstructor: any;
 
   constructor(
+    // private editCommandActionService: EditCommandActionService,    
     private chorusDispatcherService: ChorusDispatcherService,
     private sheetDispatcherService: SheetDispatcherService,
-    private elementTypeService: ElementTypeService
+    private editCommandTypeService: EditCommandTypeService
   ) {
     super();
     this.sheetDispatcherId = this.sheetDispatcherService.register(
@@ -40,14 +46,14 @@ export class SheetStoreService extends Emitter<Payload> {
           case SheetActionService.CLICK_SHEET_EVENT:
             this.createElement(<SheetAction.ClickSheet>payload.data);
             break;
-          case SheetActionService.CHANGE_SELECTED_ELEMENT_EVENT:
-            this.changeSelectedElement(<SheetAction.ChangeSelectedElement>payload.data);
+          case SheetActionService.CHANGE_INIT_COMMAND_EVENT:
+            this.changeInitCommand(<SheetAction.ChangeInitCommand>payload.data);
             break;
         }
       }
     );
 
-    this._selectedElementConstructor = this.elementTypeService.getDefaultElementConstructor();
+    this.initCommandConstructor = this.editCommandTypeService.getDefaultInitCommandConstructor();
   }
 
   get sheet(): Sheet {
@@ -68,10 +74,6 @@ export class SheetStoreService extends Emitter<Payload> {
 
   get selectedTab(): Tab {
     return this._sheet.tabs[this.selectedTabName];
-  }
-
-  get focusElementId(): string {
-    return this._focusElementId;
   }
 
   isLoadedSheet(): boolean {
@@ -99,17 +101,14 @@ export class SheetStoreService extends Emitter<Payload> {
     this.emit({ eventType: SheetStoreService.SELECT_TAB_EVENT });
   }
 
-  private changeSelectedElement(action: SheetAction.ChangeSelectedElement) {
-    this._selectedElementConstructor = action.elememntConstructor;
+  private changeInitCommand(action: SheetAction.ChangeInitCommand) {
+    this.initCommandConstructor = action.initCommandConstructor;
   }
 
   private createElement(action: SheetAction.ClickSheet) {
-    this._focusElementId = UUID.v4();
-    var element: ElementBase = new this._selectedElementConstructor();
-    element.posX = action.pos.x;
-    element.posY = action.pos.y;
-    this.selectedTab.elementOrder.push(this._focusElementId);
-    this.selectedTab.elements[this._focusElementId] = element;
+    var initCommand: InitCommand = new this.initCommandConstructor(action.pos.x, action.pos.y);
+    this.focusElementId = initCommand.elementId;
+    // this.editCommandActionService.invokeEditCommand(initCommand);
   }
 
 }

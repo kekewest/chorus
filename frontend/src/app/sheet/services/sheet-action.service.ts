@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SheetDispatcherService, SheetAction } from "app/sheet/services";
-import { Sheet } from "app/sheet";
+import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
+import { SheetAction } from "app/sheet/services/sheet-action";
+import { Sheet } from "app/sheet/sheet";
 
 @Injectable()
 export class SheetActionService {
@@ -11,7 +12,7 @@ export class SheetActionService {
   static CLICK_SHEET_EVENT: string = SheetActionService.EVENT_PREFIX + "click-sheet";  
   static UNDO_EVENT: string = SheetActionService.EVENT_PREFIX + "undo";
   static REDO_EVENT: string = SheetActionService.EVENT_PREFIX + "redo";
-  static CHANGE_SELECTED_ELEMENT_EVENT: string = SheetActionService.EVENT_PREFIX + "change-selected-element";
+  static CHANGE_INIT_COMMAND_EVENT: string = SheetActionService.EVENT_PREFIX + "change-init-command";
 
   constructor(private sheetDispatcherService: SheetDispatcherService) { }
 
