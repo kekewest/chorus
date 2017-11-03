@@ -1,3 +1,37 @@
+:host {
+  padding: 0;
+  margin: 0;
+}
+
 .input-form {
+  padding: 0;
+  margin: 0;
   outline: none;
+  resize: none;
+  overflow: hidden;
+
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.ruler-wrapper {
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+
+  .ruler {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+    border: 1px solid transparent;
+
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+  }
 }

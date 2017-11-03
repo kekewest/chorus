@@ -1,12 +1,13 @@
 <textarea #textArea
+  wrap="off"
   class="input-form" 
   [formControl]="textFormCtrl" 
-  [style.width.px]="width" 
-  [style.height.px]="height"
+  [value]="element.text"
   [style.border]="border"
   [style.background-color]="backgroundColor"
-  [style.resize]="resize"
   (mouseup)="onMouseUp()"
   (focus)="onFocus()"
-  (blur)="onBlur()">
+  (blur)="onBlur()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()">
 </textarea>
