@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { ElementComponent } from "app/sheet/components/active-tab/element/element.component";
-import { Text } from "app/sheet/element/text";
+import { TextArea } from "app/sheet/element/text-area";
 
 @Component({
-  selector: 'cr-text',
-  templateUrl: './text.component.html',
-  styleUrls: ['./text.component.scss']
+  selector: 'cr-text-area',
+  templateUrl: './text-area.component.html',
+  styleUrls: ['./text-area.component.scss']
 })
-export class TextComponent extends ElementComponent implements AfterViewInit {
+export class TextAreaComponent extends ElementComponent implements AfterViewInit {
 
   @Input()
-  element: Text;
+  element: TextArea;
 
   textFormCtrl: FormControl = new FormControl();
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client, over, Message } from "stompjs";
 import { ActivatedRoute, Params } from "@angular/router";
 import { _ } from "app";
-import { Text } from "app/sheet/element/Text";
+import { TextArea } from "app/sheet/element/text-area";
 import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
 import { SheetActionService } from "app/sheet/services/sheet-action.service";
 import { SheetStoreService } from "app/sheet/services/sheet-store.service";
@@ -66,7 +66,7 @@ export class ConcurrentEditService {
     // });
 
     var testSheet: Sheet = new Sheet().init("test sheet");
-    var textEl = new Text();
+    var textEl = new TextArea();
     textEl.posX = 200;
     textEl.posY = 100;
     textEl.text = "TextText";

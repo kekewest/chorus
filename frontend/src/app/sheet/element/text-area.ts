@@ -1,8 +1,8 @@
 import { ElementBase } from "app/sheet/element/element-base";
 
-export class Text extends ElementBase {
+export class TextArea extends ElementBase {
 
-  elementName: string = "Text";
+  elementName: string = "TextArea";
 
   constructor(
     public text: string = ""
@@ -10,7 +10,7 @@ export class Text extends ElementBase {
     super();
   }
 
-  fromJSON(json: any): Text {
+  fromJSON(json: any): TextArea {
     if (!json) {
       return null;
     }

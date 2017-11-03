@@ -1,16 +1,16 @@
 import { _ } from "app";
-import { Text } from "app/sheet/element/Text";
+import { TextArea } from "app/sheet/element/text-area";
 import { InitCommand } from "app/sheet/services/edit-command/command/init-command";
 
-export class CreateTextCommand extends InitCommand {
+export class CreateTextAreaCommand extends InitCommand {
 
-  commandName: string = "CreateTextCommand";
+  commandName: string = "CreateTextAreaCommand";
 
   selectedTabName: string;
 
   invoke() {
     this.selectedTabName = this._sheetStoreService.selectedTabName;
-    var text: Text = new Text();
+    var text: TextArea = new TextArea();
     text.posX = this.posX;
     text.posY = this.posY;
     this._sheetStoreService.selectedTab.elementOrder.push(this.elementId);
@@ -23,7 +23,7 @@ export class CreateTextCommand extends InitCommand {
   }
 
   redo() {
-    var text: Text = new Text();
+    var text: TextArea = new TextArea();
     text.posX = this.posX;
     text.posY = this.posY;
     this._sheetStoreService.tabs[this.selectedTabName].elementOrder.push(this.elementId);
@@ -34,7 +34,7 @@ export class CreateTextCommand extends InitCommand {
     return this;
   }
 
-  fromJSON(json: any): CreateTextCommand {
+  fromJSON(json: any): CreateTextAreaCommand {
     if (!json) {
       return null;
     }

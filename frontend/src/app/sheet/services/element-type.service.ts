@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ElementBase } from "app/sheet/element/element-base";
-import { Text } from "app/sheet/element/text";
-import { TextComponent } from "app/sheet/components/active-tab/element/text/text.component";
+import { TextArea } from "app/sheet/element/text-area";
+import { TextAreaComponent } from "app/sheet/components/active-tab/element/text-area/text-area.component";
 
 @Injectable()
 export class ElementTypeService {
@@ -10,8 +10,8 @@ export class ElementTypeService {
   private static elementConstructors: { [name: string]: any } = {};
 
   constructor() {
-    this.addElementComponentConstructor("Text", TextComponent);
-    this.addElementConstructor("Text", Text);
+    this.addElementComponentConstructor("TextArea", TextAreaComponent);
+    this.addElementConstructor("TextArea", TextArea);
   }
 
   private addElementComponentConstructor(name: string, elementComponentConstructor: any) {
@@ -27,7 +27,7 @@ export class ElementTypeService {
   }
 
   getDefaultElementConstructor(): any {
-    return Text;
+    return TextArea;
   }
 
   static deserializeElement(elementJson: any): ElementBase {

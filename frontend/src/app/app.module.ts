@@ -27,7 +27,7 @@ import { EmptyPipe } from './common/pipes/empty.pipe';
 import { FilesDashboardBarComponent } from './files/components/files-main-col/files-dashboard-bar/files-dashboard-bar.component';
 import { LoadingMaskComponent } from './common/components/loading-mask/loading-mask.component';
 import { ElementDirective } from './sheet/directives/element.directive';
-import { TextComponent } from './sheet/components/active-tab/element/text/text.component';
+import { TextAreaComponent } from './sheet/components/active-tab/element/text-area/text-area.component';
 import { ApiService } from "app/common/services/api.service";
 import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
 import { ErrorActionService } from "app/common/services/action/error-action.service";
@@ -60,10 +60,10 @@ import { FilenameValidator } from "app/common/validators/filename";
     FilesDashboardBarComponent,
     LoadingMaskComponent,
     ElementDirective,
-    TextComponent
+    TextAreaComponent
   ],
   entryComponents: [
-    TextComponent
+    TextAreaComponent
   ],
   imports: [
     BrowserModule,
