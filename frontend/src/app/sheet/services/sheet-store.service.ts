@@ -47,7 +47,10 @@ export class SheetStoreService extends Emitter<Payload> {
             this.changeInitCommand(<SheetAction.ChangeInitCommand>payload.data);
             break;
           case SheetActionService.CLICK_SHEET_EVENT:
-            this.changeFocusElementId(<SheetAction.ClickSheet>payload.data);
+            this.newFocusElementId(<SheetAction.ClickSheet>payload.data);
+            break;
+          case SheetActionService.CHANGE_ELEMENT_FOCUS_EVENT:
+            this.changeElementFocus(<SheetAction.ChangeElementFocus>payload.data);
             break;
         }
       }
@@ -113,8 +116,12 @@ export class SheetStoreService extends Emitter<Payload> {
     this._initCommandConstructor = action.initCommandConstructor;
   }
 
-  private changeFocusElementId(action: SheetAction.ClickSheet) {
+  private newFocusElementId(action: SheetAction.ClickSheet) {
     this._focusElementId = UUID.v4();
+  }
+
+  private changeElementFocus(action: SheetAction.ChangeElementFocus) {
+    this._focusElementId = action.elementId;
   }
 
 }

@@ -13,6 +13,7 @@ export class SheetActionService {
   static UNDO_EVENT: string = SheetActionService.EVENT_PREFIX + "undo";
   static REDO_EVENT: string = SheetActionService.EVENT_PREFIX + "redo";
   static CHANGE_INIT_COMMAND_EVENT: string = SheetActionService.EVENT_PREFIX + "change-init-command";
+  static CHANGE_ELEMENT_FOCUS_EVENT: string = SheetActionService.EVENT_PREFIX + "change-element-focus";
 
   constructor(private sheetDispatcherService: SheetDispatcherService) { }
 
@@ -58,6 +59,17 @@ export class SheetActionService {
 
     this.sheetDispatcherService.emit({
       eventType: SheetActionService.CLICK_SHEET_EVENT,
+      data: action
+    });
+  }
+
+  changeElementFocus(elementId: string) {
+    var action: SheetAction.ChangeElementFocus = {
+      elementId: elementId
+    };
+
+    this.sheetDispatcherService.emit({
+      eventType: SheetActionService.CHANGE_ELEMENT_FOCUS_EVENT,
       data: action
     });
   }

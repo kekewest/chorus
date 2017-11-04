@@ -19,4 +19,8 @@ export module SheetAction {
     initCommandConstructor: any;
   }
 
+  export interface ChangeElementFocus {
+    elementId: string;
+  }
+
 }

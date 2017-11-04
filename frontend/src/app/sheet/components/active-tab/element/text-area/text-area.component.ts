@@ -11,7 +11,9 @@ import { ChangeTextCommand } from "app/sheet/services/edit-command/command/text-
 })
 export class TextAreaComponent extends ElementComponent implements AfterViewInit, AfterViewChecked {
 
-  private static applyChangesTime: number = 1000;
+  private static APPLY_CHANGES_TIME: number = 500;
+
+  private static BODER_WIDTH: number = 1;
 
   @Input()
   element: TextArea;
@@ -23,11 +25,15 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
 
   private textAreaEl: HTMLElement;
 
-  border: string = "1px solid transparent";
+  textAreaBorderWidth: number = TextAreaComponent.BODER_WIDTH;
+  textAreaBorderStyle: string = "solid";
+  textAreaBorderColor: string = "transparent";
 
-  backgroundColor: string = "transparent";
+  textAreaColor: string = "transparent";
 
   private applyChangesTimer: NodeJS.Timer = null;
+
+  private textViewVisible: boolean = true;
 
   constructor() {
     super();
@@ -38,7 +44,6 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
     this.textFormCtrl.setValue(this.element.text);
     this.textFormCtrl.valueChanges.subscribe(
       () => {
-        this.adjustTextAreaSize();
         this.onChanges();
       }
     );
@@ -60,40 +65,58 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
     this.adjustTextAreaSize();
   }
 
-  onMouseUp() {
-    var rect: ClientRect = this.textAreaEl.getBoundingClientRect();
-  }
-
   onFocus() {
-    this.border = "1px dotted #bfbfbf";
+    this.textViewVisible = false;
+
+    this.textAreaBorderStyle = "dotted";
+    this.textAreaBorderColor = "#bfbfbf";
+    this.textAreaColor = "black";
+    this.sheetActionService.changeElementFocus(this.elementId);
   }
 
   onBlur() {
-    this.border = "1px solid transparent";
+    this.textViewVisible = true;
+
+    this.textAreaBorderStyle = "solid";
+    this.textAreaBorderColor = "transparent";
+    this.textAreaColor = "transparent";
+
+    if (this.applyChangesTimer !== null) {
+      clearTimeout(this.applyChangesTimer);
+      this.applyChanges();
+    }
+
+    this.sheetActionService.changeElementFocus(null);
   }
 
   onMouseEnter() {
-    this.border = "1px dotted #bfbfbf";
+    this.textAreaBorderStyle = "dotted";
+    this.textAreaBorderColor = "#bfbfbf";
   }
 
   onMouseLeave() {
-    this.border = "1px solid transparent";
+    if (this.elementId !== this.sheetStoreService.focusElementId) {
+      this.textAreaBorderStyle = "solid";
+      this.textAreaBorderColor = "transparent";
+    }
   }
 
   adjustTextAreaSize() {
     this.textAreaEl.style.height = 'auto';
-    this.textAreaEl.style.height = (this.textAreaEl.scrollHeight + 2) + 'px';
+    this.textAreaEl.style.height = (this.textAreaEl.scrollHeight + TextAreaComponent.BODER_WIDTH * 2) + 'px';
+
     this.textAreaEl.style.width = 'auto';
-    this.textAreaEl.style.width = (this.textAreaEl.scrollWidth + 2) + 'px';
+    this.textAreaEl.style.width = (this.textAreaEl.scrollWidth + TextAreaComponent.BODER_WIDTH * 2) + 'px';
   }
 
   onChanges() {
     if (this.applyChangesTimer !== null) {
       clearTimeout(this.applyChangesTimer);
     }
+
     this.applyChangesTimer = setTimeout(() => {
       this.applyChanges();
-    }, TextAreaComponent.applyChangesTime);
+    }, TextAreaComponent.APPLY_CHANGES_TIME);
   }
 
   applyChanges() {
