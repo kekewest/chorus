@@ -11,7 +11,6 @@ export class EditCommandTypeService {
   constructor() { 
     this.addEditCommandConstructor("CreateNewTabCommand", CreateNewTabCommand);
 
-    this.addEditCommandConstructor("CreateTextAreaCommand", CreateTextAreaCommand);
     this.addEditCommandConstructor("ChangeTextCommand", ChangeTextCommand);
   }
 
@@ -21,10 +20,6 @@ export class EditCommandTypeService {
 
   getEditCommandConstructor(name: string): any {
     return this.editCommandConstructors[name];
-  }
-
-  getDefaultInitCommandConstructor(): any {
-    return CreateTextAreaCommand;
   }
 
 }

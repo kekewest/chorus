@@ -5,7 +5,6 @@ import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.serv
 import { ConcurrentEditService } from "app/sheet/services/concurrent-edit.service";
 import { Payload } from "app/common/base/emitter";
 import { SheetAction } from "app/sheet/services/sheet-action";
-import { InitCommand } from "app/sheet/services/edit-command/command/init-command";
 import { SheetActionService } from "app/sheet/services/sheet-action.service";
 import { SheetStoreService } from "app/sheet/services/sheet-store.service";
 
@@ -27,9 +26,6 @@ export class EditCommandActionService {
           case ConcurrentEditService.EDIT_COMMAND_EVENT:
             this.emitEditCommand(<string>payload.data);
             break;
-          case SheetActionService.CLICK_SHEET_EVENT:
-            this.createElement(<SheetAction.ClickSheet>payload.data);
-            break;
         }
       }
     );
@@ -49,12 +45,6 @@ export class EditCommandActionService {
     var editCommandJson: any = JSON.parse(editCommandJsonStr);
     var constructor: any = this.editCommandTypeService.getEditCommandConstructor(editCommandJson.commandName);
     return (<EditCommand> new constructor()).fromJSON(editCommandJson);
-  }
-
-  private createElement(action: SheetAction.ClickSheet) {
-    this.sheetDispatcherService.waitFor([this.sheetStoreService.sheetDispatcherId]);
-    var initCommand: InitCommand = new this.sheetStoreService.initCommandConstructor(this.sheetStoreService.focusElementId, action.pos.x, action.pos.y);
-    this.invokeEditCommand(initCommand);
   }
 
 }

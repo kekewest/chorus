@@ -41,24 +41,15 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
 
   ngOnInit() {
     super.ngOnInit();
-    this.textFormCtrl.setValue(this.element.text);
     this.textFormCtrl.valueChanges.subscribe(
       () => {
         this.onChanges();
       }
     );
-
-    if (this.elementId === this.sheetStoreService.focusElementId) {
-      this.onFocus();
-    }
   }
 
   ngAfterViewInit() {
     this.textAreaEl = this.textAreaRef.nativeElement;
-
-    if (this.elementId === this.sheetStoreService.focusElementId) {
-      this.textAreaEl.focus();
-    }
   }
 
   ngAfterViewChecked() {
@@ -67,16 +58,15 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
 
   onFocus() {
     this.textViewVisible = false;
-
     this.textAreaBorderStyle = "dotted";
     this.textAreaBorderColor = "#bfbfbf";
     this.textAreaColor = "black";
+    this.textFormCtrl.setValue(this.element.text);
     this.sheetActionService.changeElementFocus(this.elementId);
   }
 
   onBlur() {
     this.textViewVisible = true;
-
     this.textAreaBorderStyle = "solid";
     this.textAreaBorderColor = "transparent";
     this.textAreaColor = "transparent";
@@ -95,13 +85,11 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
   }
 
   onMouseLeave() {
-    if (this.elementId !== this.sheetStoreService.focusElementId) {
-      this.textAreaBorderStyle = "solid";
-      this.textAreaBorderColor = "transparent";
-    }
+    this.textAreaBorderStyle = "solid";
+    this.textAreaBorderColor = "transparent";
   }
 
-  adjustTextAreaSize() {
+  private adjustTextAreaSize() {
     this.textAreaEl.style.height = 'auto';
     this.textAreaEl.style.height = (this.textAreaEl.scrollHeight + TextAreaComponent.BODER_WIDTH * 2) + 'px';
 

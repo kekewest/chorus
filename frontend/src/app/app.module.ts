@@ -36,6 +36,8 @@ import { MeStoreService } from "app/common/services/store/me-store.service";
 import { FilesActionService } from "app/common/services/action/files-action.service";
 import { FilesStoreService } from "app/common/services/store/files-store.service";
 import { FilenameValidator } from "app/common/validators/filename";
+import { TextAreaEditorComponent } from './sheet/components/active-tab/element/text-area/text-area-editor.component';
+import { ElementEditorDirective } from './sheet/directives/element-editor.directive';
 
 @NgModule({
   declarations: [
@@ -60,10 +62,13 @@ import { FilenameValidator } from "app/common/validators/filename";
     FilesDashboardBarComponent,
     LoadingMaskComponent,
     ElementDirective,
-    TextAreaComponent
+    TextAreaComponent,
+    TextAreaEditorComponent,
+    ElementEditorDirective
   ],
   entryComponents: [
-    TextAreaComponent
+    TextAreaComponent,
+    TextAreaEditorComponent
   ],
   imports: [
     BrowserModule,

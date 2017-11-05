@@ -6,7 +6,6 @@ import { EditCommandTypeService } from "app/sheet/services/edit-command/edit-com
 import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
 import { SheetActionService } from "app/sheet/services/sheet-action.service";
 import { SheetAction } from "app/sheet/services/sheet-action";
-import { InitCommand } from "app/sheet/services/edit-command/command/init-command";
 import { Sheet } from "app/sheet/sheet";
 import { Tab } from "app/sheet/tab";
 import { Emitter, Payload } from "app/common/base/emitter";
@@ -24,9 +23,7 @@ export class SheetStoreService extends Emitter<Payload> {
 
   private _sheet: Sheet;
 
-  private _focusElementId: string;
-
-  private _initCommandConstructor: any;
+  private _activeElementType: string = "TextArea";
 
   constructor(
     private chorusDispatcherService: ChorusDispatcherService,
@@ -43,20 +40,9 @@ export class SheetStoreService extends Emitter<Payload> {
           case SheetActionService.SELECT_TAB_EVENT:
             this.selectTab(<SheetAction.SelectTab>payload.data);
             break;
-          case SheetActionService.CHANGE_INIT_COMMAND_EVENT:
-            this.changeInitCommand(<SheetAction.ChangeInitCommand>payload.data);
-            break;
-          case SheetActionService.CLICK_SHEET_EVENT:
-            this.newFocusElementId(<SheetAction.ClickSheet>payload.data);
-            break;
-          case SheetActionService.CHANGE_ELEMENT_FOCUS_EVENT:
-            this.changeElementFocus(<SheetAction.ChangeElementFocus>payload.data);
-            break;
         }
       }
     );
-
-    this._initCommandConstructor = this.editCommandTypeService.getDefaultInitCommandConstructor();
   }
 
   get sheet(): Sheet {
@@ -79,12 +65,8 @@ export class SheetStoreService extends Emitter<Payload> {
     return this._sheet.tabs[this.selectedTabName];
   }
 
-  get focusElementId(): string {
-    return this._focusElementId;
-  }
-
-  get initCommandConstructor(): any {
-    return this._initCommandConstructor;
+  get activeElementType(): string {
+    return this._activeElementType;
   }
 
   isLoadedSheet(): boolean {
@@ -110,18 +92,6 @@ export class SheetStoreService extends Emitter<Payload> {
   private selectTab(action: SheetAction.SelectTab) {
     this._sheet.selectedTabName = action.tabName;
     this.emit({ eventType: SheetStoreService.SELECT_TAB_EVENT });
-  }
-
-  private changeInitCommand(action: SheetAction.ChangeInitCommand) {
-    this._initCommandConstructor = action.initCommandConstructor;
-  }
-
-  private newFocusElementId(action: SheetAction.ClickSheet) {
-    this._focusElementId = UUID.v4();
-  }
-
-  private changeElementFocus(action: SheetAction.ChangeElementFocus) {
-    this._focusElementId = action.elementId;
   }
 
 }

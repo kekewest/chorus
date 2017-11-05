@@ -32,7 +32,7 @@ export class ElementDirective implements OnInit {
     var ComponentRef: ComponentRef<{}> = this.viewContainerRef.createComponent(componentFactory);
     (<ElementComponent>ComponentRef.instance).elementId = this.elementId;
     (<ElementComponent>ComponentRef.instance).element = element;
-    (<ElementComponent>ComponentRef.instance).sheetDispatcherService = this.sheetDispatcherService;
+    (<ElementComponent>ComponentRef.instance).sheetDispatcherService = this.sheetDispatcherService;    
     (<ElementComponent>ComponentRef.instance).sheetStoreService = this.sheetStoreService;
     (<ElementComponent>ComponentRef.instance).sheetActionService = this.sheetActionService;
     (<ElementComponent>ComponentRef.instance).editCommandActionService = this.editCommandActionService;
