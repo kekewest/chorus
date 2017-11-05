@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextControlComponent } from './text-control.component';
+import { TextAreaControlComponent } from './text-area-control.component';
 
-describe('TextControlComponent', () => {
-  let component: TextControlComponent;
-  let fixture: ComponentFixture<TextControlComponent>;
+describe('TextAreaControlComponent', () => {
+  let component: TextAreaControlComponent;
+  let fixture: ComponentFixture<TextAreaControlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextControlComponent ]
+      declarations: [ TextAreaControlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextControlComponent);
+    fixture = TestBed.createComponent(TextAreaControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

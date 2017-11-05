@@ -12,7 +12,7 @@ import { ActiveTabComponent } from './sheet/components/active-tab/active-tab.com
 import { SheetTabsComponent } from './sheet/components/sheet-tabs/sheet-tabs.component';
 import { SheetEditComponent } from './sheet/components/sheet-edit/sheet-edit.component';
 import { RedoUndoComponent } from './sheet/components/sheet-edit/redo-undo/redo-undo.component';
-import { TextControlComponent } from './sheet/components/sheet-edit/element-control/text/text-control.component';
+import { TextAreaControlComponent } from './sheet/components/sheet-edit/element-control/text-area/text-area-control.component';
 import { LoginComponent } from './login/components/login.component';
 import { RootComponent } from './root/components/root.component';
 import { FilesComponent } from './files/components/files.component';
@@ -45,7 +45,7 @@ import { FilenameValidator } from "app/common/validators/filename";
     SheetTabsComponent,
     SheetEditComponent,
     RedoUndoComponent,
-    TextControlComponent,
+    TextAreaControlComponent,
     LoginComponent,
     RootComponent,
     FilesComponent,
