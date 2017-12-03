@@ -5,6 +5,8 @@ import { ElementEditorComponent } from "app/sheet/components/active-tab/element/
 import { Payload } from "app/common/base/emitter";
 import { SheetAction } from "app/sheet/services/sheet-action";
 import { SheetActionService } from "app/sheet/services/sheet-action.service";
+import { UUID } from 'app/common/utils/uuid';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'cr-text-area-editor',
@@ -26,6 +28,10 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
 
   private applyChangesTimer: NodeJS.Timer = null;
 
+  private elementId: string;
+
+  private changeSubscription: Subscription;
+  
   ngOnInit() {
     this.sheetDispatcherService.register(
       (payload: Payload) => {
@@ -37,11 +43,7 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
       }
     );
 
-    this.textFormCtrl.valueChanges.subscribe(
-      () => {
-        this.onChanges();
-      }
-    );
+    this.elementId = UUID.v4();
   }
 
   ngAfterViewInit() {
@@ -63,15 +65,21 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     this.posX = action.pos.x;
     this.posY = action.pos.y;
     this.hidden = false;
+
+    this.changeSubscription = this.textFormCtrl.valueChanges.subscribe(() => { this.onChanges(); });    
   }
 
   onBlur() {
+    this.changeSubscription.unsubscribe();
+    this.changeSubscription = null;
+
     if (this.applyChangesTimer !== null) {
       clearTimeout(this.applyChangesTimer);
       this.applyChanges();
     }
 
     this.textFormCtrl.setValue("");
+    this.elementId = UUID.v4();
     this.hidden = true;
   }
 
@@ -94,12 +102,14 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
   }
 
   applyChanges() {
-    // var changeCommand: ChangeTextCommand = new ChangeTextCommand(
-    //   this.sheetStoreService.selectedTabName,
-    //   this.elementId,
-    //   this.textFormCtrl.value
-    // );
-    // this.editCommandActionService.invokeEditCommand(changeCommand);
+    var changeCommand: ChangeTextCommand = new ChangeTextCommand(
+      this.sheetStoreService.selectedTabName,
+      this.elementId,
+      this.textFormCtrl.value,
+      this.posX,
+      this.posY
+    );
+    this.editCommandActionService.invokeEditCommand(changeCommand);
     this.applyChangesTimer = null;
   }
 

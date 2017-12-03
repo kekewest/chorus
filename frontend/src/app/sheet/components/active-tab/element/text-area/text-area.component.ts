@@ -3,6 +3,7 @@ import { FormControl } from "@angular/forms";
 import { ElementComponent } from "app/sheet/components/active-tab/element/element.component";
 import { TextArea } from "app/sheet/element/text-area";
 import { ChangeTextCommand } from "app/sheet/services/edit-command/command/text-area/change-text-command";
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'cr-text-area',
@@ -35,17 +36,14 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
 
   private textViewVisible: boolean = true;
 
+  private changeSubscription: Subscription;
+
   constructor() {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.textFormCtrl.valueChanges.subscribe(
-      () => {
-        this.onChanges();
-      }
-    );
   }
 
   ngAfterViewInit() {
@@ -63,9 +61,14 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
     this.textAreaColor = "black";
     this.textFormCtrl.setValue(this.element.text);
     this.sheetActionService.changeElementFocus(this.elementId);
+
+    this.changeSubscription = this.textFormCtrl.valueChanges.subscribe(() => { this.onChanges(); });
   }
 
   onBlur() {
+    this.changeSubscription.unsubscribe();
+    this.changeSubscription = null;
+
     this.textViewVisible = true;
     this.textAreaBorderStyle = "solid";
     this.textAreaBorderColor = "transparent";
@@ -111,7 +114,9 @@ export class TextAreaComponent extends ElementComponent implements AfterViewInit
     var changeCommand: ChangeTextCommand = new ChangeTextCommand(
       this.sheetStoreService.selectedTabName,
       this.elementId,
-      this.textFormCtrl.value
+      this.textFormCtrl.value,
+      this.posX,
+      this.posY
     );
     this.editCommandActionService.invokeEditCommand(changeCommand);
     this.applyChangesTimer = null;
