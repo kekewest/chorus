@@ -19,10 +19,7 @@ export class ElementDirective implements OnInit {
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private elementTypeService: ElementTypeService,
-    private sheetDispatcherService: SheetDispatcherService,
-    private sheetStoreService: SheetStoreService,
-    private sheetActionService: SheetActionService,
-    private editCommandActionService: EditCommandActionService
+    private sheetStoreService: SheetStoreService
   ) { }
 
   ngOnInit(): void {
@@ -32,10 +29,6 @@ export class ElementDirective implements OnInit {
     var ComponentRef: ComponentRef<{}> = this.viewContainerRef.createComponent(componentFactory);
     (<ElementComponent>ComponentRef.instance).elementId = this.elementId;
     (<ElementComponent>ComponentRef.instance).element = element;
-    (<ElementComponent>ComponentRef.instance).sheetDispatcherService = this.sheetDispatcherService;    
-    (<ElementComponent>ComponentRef.instance).sheetStoreService = this.sheetStoreService;
-    (<ElementComponent>ComponentRef.instance).sheetActionService = this.sheetActionService;
-    (<ElementComponent>ComponentRef.instance).editCommandActionService = this.editCommandActionService;
   }
 
 }

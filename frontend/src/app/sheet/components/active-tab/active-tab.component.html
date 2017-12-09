@@ -1,4 +1,4 @@
-<div #activeTabView class="active-tab-view" (scroll)="onScroll($event)">
+<div #activeTabView class="active-tab-view" (scroll)="onScroll()">
   <div #activeTabArea class="active-tab-area" [style.width.px]="areaWidth" [style.height.px]="areaHeight" (click)="onClick($event)">
     <ng-container *ngFor="let id of elementOrder">
       <ng-template crElement [elementId]="id"></ng-template>

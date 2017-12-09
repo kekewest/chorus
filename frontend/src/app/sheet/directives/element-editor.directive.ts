@@ -15,12 +15,7 @@ export class ElementEditorDirective implements OnInit {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private elementTypeService: ElementTypeService,
-    private sheetDispatcherService: SheetDispatcherService,
-    private sheetStoreService: SheetStoreService,
-    private sheetActionService: SheetActionService,
-    private editCommandActionService: EditCommandActionService
-  
+    private elementTypeService: ElementTypeService  
   ) { }
 
   ngOnInit(): void {
@@ -28,12 +23,7 @@ export class ElementEditorDirective implements OnInit {
     
     _.forOwn(constructors, (cons: any, name: string) => {
       var componentFactory: ComponentFactory<{}> = this.componentFactoryResolver.resolveComponentFactory(cons);
-      var componentRef: ComponentRef<{}> = this.viewContainerRef.createComponent(componentFactory);
-      
-      (<ElementEditorComponent>componentRef.instance).sheetDispatcherService = this.sheetDispatcherService;
-      (<ElementEditorComponent>componentRef.instance).sheetStoreService = this.sheetStoreService;
-      (<ElementEditorComponent>componentRef.instance).sheetActionService = this.sheetActionService;
-      (<ElementEditorComponent>componentRef.instance).editCommandActionService = this.editCommandActionService;
+      var componentRef: ComponentRef<{}> = this.viewContainerRef.createComponent(componentFactory);      
     });
   }
 

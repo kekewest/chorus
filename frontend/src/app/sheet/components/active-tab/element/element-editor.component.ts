@@ -18,14 +18,6 @@ export abstract class ElementEditorComponent {
   @HostBinding("style.top.px")
   posY: number;
 
-  sheetDispatcherService: SheetDispatcherService;
-
-  sheetStoreService: SheetStoreService;
-
-  sheetActionService: SheetActionService;
-
-  editCommandActionService: EditCommandActionService;
-
   @HostListener("click", ["$event"])
   onClick(event: Event) {
     event.stopPropagation();

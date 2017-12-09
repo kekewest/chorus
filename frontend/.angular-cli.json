@@ -26,7 +26,8 @@
         "../node_modules/createjs-easeljs/lib/easeljs-0.8.2.min.js",
         "../node_modules/lodash/lodash.min.js",
         "../node_modules/underscore.string/dist/underscore.string.min.js",
-        "../node_modules/stompjs/lib/stomp.min.js"
+        "../node_modules/stompjs/lib/stomp.min.js",
+        "../node_modules/marked/lib/marked.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

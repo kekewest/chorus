@@ -22,14 +22,6 @@ export abstract class ElementComponent implements OnInit {
   @HostBinding("style.top.px")
   posY: number;
 
-  sheetDispatcherService: SheetDispatcherService;  
-
-  sheetStoreService: SheetStoreService;
-
-  sheetActionService: SheetActionService;
-
-  editCommandActionService: EditCommandActionService;
-
   ngOnInit(): void {
     this.posX = this.element.posX;
     this.posY = this.element.posY;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, forwardRef } from '@angular/core';
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
 import { ElementBase } from "app/sheet/element/element-base";
 import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
@@ -11,6 +11,7 @@ import { Tab } from "app/sheet/tab";
 import { Emitter, Payload } from "app/common/base/emitter";
 import { ChorusDispatcherService } from "app/common/services/chorus-dispatcher.service";
 import { UUID } from "app/common/utils/uuid";
+import { TextArea } from 'app/sheet/element/text-area';
 
 @Injectable()
 export class SheetStoreService extends Emitter<Payload> {
@@ -18,17 +19,20 @@ export class SheetStoreService extends Emitter<Payload> {
   static EVENT_PREFIX: string = "SheetStoreService.";
   static LOAD_SHEET_EVENT: string = SheetStoreService.EVENT_PREFIX + "load-sheet";
   static SELECT_TAB_EVENT: string = SheetStoreService.EVENT_PREFIX + "select-tab";
+  static CHANGE_ELEMENT_FOCUS_EVENT: string = SheetStoreService.EVENT_PREFIX + "change-element-focus";
   
   sheetDispatcherId: string;
 
   private _sheet: Sheet;
 
-  private _activeElementType: string = "TextArea";
+  private _focusElementId: string;
+  private _focusElement: ElementBase;
+
+  private _activeElementType: string = TextArea.name;
 
   constructor(
     private chorusDispatcherService: ChorusDispatcherService,
-    private sheetDispatcherService: SheetDispatcherService,
-    private editCommandTypeService: EditCommandTypeService
+    private sheetDispatcherService: SheetDispatcherService
   ) {
     super();
     this.sheetDispatcherId = this.sheetDispatcherService.register(
@@ -39,6 +43,9 @@ export class SheetStoreService extends Emitter<Payload> {
             break;
           case SheetActionService.SELECT_TAB_EVENT:
             this.selectTab(<SheetAction.SelectTab>payload.data);
+            break;
+          case SheetActionService.CHANGE_ELEMENT_FOCUS_EVENT:
+            this.changeFocusElement(<SheetAction.ChangeElementFocus>payload.data);
             break;
         }
       }
@@ -63,6 +70,14 @@ export class SheetStoreService extends Emitter<Payload> {
 
   get selectedTab(): Tab {
     return this._sheet.tabs[this.selectedTabName];
+  }
+
+  get focusElementId(): string {
+    return this._focusElementId;
+  }
+
+  get focusElement(): ElementBase {
+    return this._focusElement;
   }
 
   get activeElementType(): string {
@@ -92,6 +107,15 @@ export class SheetStoreService extends Emitter<Payload> {
   private selectTab(action: SheetAction.SelectTab) {
     this._sheet.selectedTabName = action.tabName;
     this.emit({ eventType: SheetStoreService.SELECT_TAB_EVENT });
+  }
+
+  private changeFocusElement(action: SheetAction.ChangeElementFocus) {
+    this._focusElementId = action.elementId;
+    this._focusElement = action.element;
+    if (action.element) {
+      this._activeElementType = action.element.elementName;
+    }
+    this.emit({ eventType: SheetStoreService.CHANGE_ELEMENT_FOCUS_EVENT });
   }
 
 }

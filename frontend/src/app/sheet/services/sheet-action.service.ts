@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SheetDispatcherService } from "app/sheet/services/sheet-dispatcher.service";
 import { SheetAction } from "app/sheet/services/sheet-action";
 import { Sheet } from "app/sheet/sheet";
+import { ElementBase } from 'app/sheet/element/element-base';
 
 @Injectable()
 export class SheetActionService {
@@ -62,9 +63,10 @@ export class SheetActionService {
     });
   }
 
-  changeElementFocus(elementId: string) {
+  changeElementFocus(elementId: string, element: ElementBase) {
     var action: SheetAction.ChangeElementFocus = {
-      elementId: elementId
+      elementId: elementId,
+      element: element
     };
 
     this.sheetDispatcherService.emit({

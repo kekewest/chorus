@@ -1,16 +1,8 @@
 <div 
   class="text-view"
-  [hidden]="!textViewVisible">{{element.text}}</div>
-<textarea #textArea
-  wrap="off"
-  class="input-form" 
-  [formControl]="textFormCtrl" 
-  [style.border-width.px]="textAreaBorderWidth"
-  [style.border-style]="textAreaBorderStyle"
-  [style.border-color]="textAreaBorderColor"
-  [style.color]="textAreaColor"
-  (focus)="onFocus()"
-  (blur)="onBlur()"
+  [hidden]="isEditing()"
+  [style.border]="border"
+  (click)="onClickText()"
   (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()">
-</textarea>
+  (mouseleave)="onMouseLeave()"
+  [innerHTML]="markdown()"></div>

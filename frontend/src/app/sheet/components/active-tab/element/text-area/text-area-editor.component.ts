@@ -1,12 +1,16 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked, forwardRef, Inject } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { ChangeTextCommand } from "app/sheet/services/edit-command/command/text-area/change-text-command";
 import { ElementEditorComponent } from "app/sheet/components/active-tab/element/element-editor.component";
 import { Payload } from "app/common/base/emitter";
+import { SheetStoreService } from 'app/sheet/services/sheet-store.service';
 import { SheetAction } from "app/sheet/services/sheet-action";
 import { SheetActionService } from "app/sheet/services/sheet-action.service";
 import { UUID } from 'app/common/utils/uuid';
 import { Subscription } from 'rxjs/Subscription';
+import { TextArea } from 'app/sheet/element/text-area';
+import { SheetDispatcherService } from 'app/sheet/services/sheet-dispatcher.service';
+import { EditCommandActionService } from 'app/sheet/services/edit-command/edit-command-action.service';
 
 @Component({
   selector: 'cr-text-area-editor',
@@ -31,13 +35,32 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
   private elementId: string;
 
   private changeSubscription: Subscription;
-  
+
+  constructor(
+    private sheetDispatcherService: SheetDispatcherService,
+    private sheetActionService: SheetActionService,
+    private sheetStoreService: SheetStoreService,
+    @Inject(forwardRef(() => EditCommandActionService)) private editCommandActionService: EditCommandActionService
+  ) {
+    super();    
+  }
+
   ngOnInit() {
     this.sheetDispatcherService.register(
       (payload: Payload) => {
         switch (payload.eventType) {
           case SheetActionService.CLICK_SHEET_EVENT:
-            this.showEditor(<SheetAction.ClickSheet>payload.data);
+            this.showNewEditor(<SheetAction.ClickSheet>payload.data);
+            break;
+        }
+      }
+    );
+
+    this.sheetStoreService.register(
+      (payload: Payload) => {
+        switch (payload.eventType) {
+          case SheetStoreService.CHANGE_ELEMENT_FOCUS_EVENT:
+            this.showEditor();
             break;
         }
       }
@@ -57,21 +80,42 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     }
   }
 
-  showEditor(action: SheetAction.ClickSheet) {
+  private showEditor() {
+    if (!this.sheetStoreService.focusElement
+      || this.sheetStoreService.focusElement.elementName !== TextAreaEditorComponent.ELEMENT_TYPE) {
+      return;
+    }
+
+    var textArea: TextArea = <TextArea>this.sheetStoreService.focusElement;
+    this.posX = textArea.posX;
+    this.posY = textArea.posY;
+    this.hidden = false;
+    this.textFormCtrl.setValue(textArea.text);
+    this.elementId = this.sheetStoreService.focusElementId;
+
+    this.changeSubscription = this.textFormCtrl.valueChanges.subscribe(() => { this.onChanges(); });
+  }
+
+  private showNewEditor(action: SheetAction.ClickSheet) {
     if (this.sheetStoreService.activeElementType !== TextAreaEditorComponent.ELEMENT_TYPE) {
       return;
     }
-    
+
     this.posX = action.pos.x;
     this.posY = action.pos.y;
     this.hidden = false;
 
-    this.changeSubscription = this.textFormCtrl.valueChanges.subscribe(() => { this.onChanges(); });    
+    this.changeSubscription = this.textFormCtrl.valueChanges.subscribe(() => { this.onChanges(); });
+    this.sheetActionService.changeElementFocus(this.elementId, null);
   }
 
   onBlur() {
     this.changeSubscription.unsubscribe();
     this.changeSubscription = null;
+
+    if (this.sheetStoreService.focusElementId === this.elementId) {
+      this.sheetActionService.changeElementFocus(null, null);
+    }
 
     if (this.applyChangesTimer !== null) {
       clearTimeout(this.applyChangesTimer);
@@ -83,7 +127,7 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     this.hidden = true;
   }
 
-  adjustTextAreaSize() {
+  private adjustTextAreaSize() {
     this.textAreaEl.style.height = 'auto';
     this.textAreaEl.style.height = (this.textAreaEl.scrollHeight + TextAreaEditorComponent.BODER_WIDTH * 2) + 'px';
 
@@ -91,7 +135,7 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     this.textAreaEl.style.width = (this.textAreaEl.scrollWidth + TextAreaEditorComponent.BODER_WIDTH * 2) + 'px';
   }
 
-  onChanges() {
+  private onChanges() {
     if (this.applyChangesTimer !== null) {
       clearTimeout(this.applyChangesTimer);
     }
@@ -101,7 +145,7 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     }, TextAreaEditorComponent.APPLY_CHANGES_TIME);
   }
 
-  applyChanges() {
+  private applyChanges() {
     var changeCommand: ChangeTextCommand = new ChangeTextCommand(
       this.sheetStoreService.selectedTabName,
       this.elementId,

@@ -1,4 +1,5 @@
 import { Sheet } from "app/sheet/sheet";
+import { ElementBase } from "app/sheet/element/element-base";
 
 export module SheetAction {
 
@@ -21,6 +22,7 @@ export module SheetAction {
 
   export interface ChangeElementFocus {
     elementId: string;
+    element: ElementBase;
   }
 
 }
