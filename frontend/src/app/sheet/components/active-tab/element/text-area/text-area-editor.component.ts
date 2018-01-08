@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked, forwardRef, Inject } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { ChangeTextCommand } from "app/sheet/services/edit-command/command/text-area/change-text-command";
 import { ElementEditorComponent } from "app/sheet/components/active-tab/element/element-editor.component";
@@ -40,7 +40,7 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     private sheetDispatcherService: SheetDispatcherService,
     private sheetActionService: SheetActionService,
     private sheetStoreService: SheetStoreService,
-    @Inject(forwardRef(() => EditCommandActionService)) private editCommandActionService: EditCommandActionService
+    private editCommandActionService: EditCommandActionService
   ) {
     super();    
   }

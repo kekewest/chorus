@@ -1,4 +1,4 @@
-import { Injectable, Inject, forwardRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { LoadingMaskComponent } from "app/common/components/loading-mask/loading-mask.component";
 import { ElementBase } from "app/sheet/element/element-base";
 import { EditCommandActionService } from "app/sheet/services/edit-command/edit-command-action.service";
