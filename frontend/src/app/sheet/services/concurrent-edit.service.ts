@@ -69,7 +69,7 @@ export class ConcurrentEditService {
     var textEl = new TextArea();
     textEl.posX = 200;
     textEl.posY = 100;
-    textEl.text = "TextText";
+    textEl.text = "# TextText\nhoge\n## test";
     var id = UUID.v4();
     testSheet.tabs[testSheet.selectedTabName].elements[id] = textEl;
     testSheet.tabs[testSheet.selectedTabName].elementOrder.push(id);

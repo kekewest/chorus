@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ElementComponent } from "app/sheet/components/active-tab/element/element.component";
 import { TextArea } from "app/sheet/element/text-area";
-import * as marked from 'marked';
 import { SheetActionService } from 'app/sheet/services/sheet-action.service';
 import { SheetStoreService } from 'app/sheet/services/sheet-store.service';
 
