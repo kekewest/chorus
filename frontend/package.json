@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --environment=dev",
-    "build": "ng build --target=production --environment=prod",
+    "start": "ng serve --aot --environment=dev",
+    "build": "ng build --aot --target=production --environment=prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,7 +26,7 @@
     "lodash": "^4.17.4",
     "marked": "^0.3.7",
     "moment": "^2.18.1",
-    "ngx-bootstrap": "^1.8.1",
+    "ngx-bootstrap": "^2.0.0-rc.0",
     "rxjs": "^5.4.2",
     "stompjs": "^2.3.3",
     "underscore.string": "^3.3.4",
