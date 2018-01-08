@@ -55,6 +55,7 @@ export class ChangeTextCommand extends EditCommand {
     target.text = this.previousText;
     target.posX = this.previousPosX;
     target.posY = this.previousPosY;
+    target.clearSafeHtmlCache();
   }
 
   redo() {
@@ -71,13 +72,11 @@ export class ChangeTextCommand extends EditCommand {
     target.text = this.text;
     target.posX = this.posX;
     target.posY = this.posY;
+    target.clearSafeHtmlCache();
   }
 
   private invokeTextCreating() {
-    var newTextArea: TextArea = new TextArea();
-    newTextArea.text = this.text;
-    newTextArea.posX = this.posX;
-    newTextArea.posY = this.posY;
+    var newTextArea: TextArea = new TextArea(this.posX, this.posY, this.text, null);
 
     this._sheetStoreService.tabs[this.tabName].elements[this.elementId] = newTextArea;
     this._sheetStoreService.tabs[this.tabName].elementOrder.push(this.elementId);
@@ -105,7 +104,7 @@ export class ChangeTextCommand extends EditCommand {
     target.text = this.text;
     target.posX = this.posX;
     target.posY = this.posY;
-
+    target.clearSafeHtmlCache();
   }
 
   toJSON() {

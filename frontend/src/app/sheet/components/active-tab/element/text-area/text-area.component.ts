@@ -54,9 +54,8 @@ export class TextAreaComponent extends ElementComponent {
     this.border = "1px solid transparent";
   }
 
-  markdown(): SafeHtml {
-    console.log("markdown render");
-    return this.sanitizer.bypassSecurityTrustHtml(marked(this.element.text));
+  getSafeHtml(): SafeHtml {
+    return this.element.getSafeHtmlCache(this.sanitizer);
   }
 
 }
