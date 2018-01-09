@@ -2,24 +2,30 @@
   padding: 0;
   margin: 0;
 
-  .text-view {
+  .html-view {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 3px;
-    white-space: nowrap;
-    cursor: text;
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    line-height: 20px;
 
-    /deep/ {
-      >:first-child {
-        margin-top: 0;
-      }
-  
-      >:last-child {
-        margin-bottom: 0;
+    .handle {
+      height: 14px;
+    }
+
+    .view-wrapper {
+      padding: 3px;
+      white-space: nowrap;
+      font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 14px;
+      line-height: 20px;
+
+      /deep/ {
+        >:first-child {
+          margin-top: 0;
+        }
+    
+        >:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }

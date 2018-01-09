@@ -17,6 +17,8 @@ export class TextAreaComponent extends ElementComponent {
 
   border: string = "1px solid transparent";
 
+  showHandle: boolean = false;
+
   constructor(
     private sanitizer: DomSanitizer,
     private sheetActionService: SheetActionService,
@@ -39,10 +41,12 @@ export class TextAreaComponent extends ElementComponent {
 
   onMouseEnter() {
     this.enableFocusBorder();
+    this.showHandle = true;
   }
 
   onMouseLeave() {
     this.disableFocusBorder();
+    this.showHandle = false;
   }
 
   enableFocusBorder() {

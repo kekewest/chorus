@@ -1,8 +1,14 @@
 <div 
-  class="text-view"
+  class="html-view"
   [hidden]="isEditing()"
   [style.border]="border"
-  (click)="onClickText()"
   (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()"
-  [innerHTML]="getSafeHtml()"></div>
+  (mouseleave)="onMouseLeave()">
+  <div 
+    class="handle" 
+    [style.border-bottom]="border"></div>
+  <div 
+    class="view-wrapper" 
+    (click)="onClickText()"
+    [innerHTML]="getSafeHtml()"></div>
+</div>

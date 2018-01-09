@@ -25,8 +25,13 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
 
   textFormCtrl: FormControl = new FormControl();
 
+  @ViewChild("handle")
+  handleRef: ElementRef;
+
   @ViewChild("textArea")
   textAreaRef: ElementRef;
+
+  private handleEl: HTMLElement;
 
   private textAreaEl: HTMLElement;
 
@@ -35,6 +40,8 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
   private elementId: string;
 
   private changeSubscription: Subscription;
+
+  private mouseOnHandle: boolean = false;
 
   constructor(
     private sheetDispatcherService: SheetDispatcherService,
@@ -70,6 +77,7 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
   }
 
   ngAfterViewInit() {
+    this.handleEl = this.handleRef.nativeElement;
     this.textAreaEl = this.textAreaRef.nativeElement;
   }
 
@@ -109,7 +117,19 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     this.sheetActionService.changeElementFocus(this.elementId, null);
   }
 
+  onMouseEnterHandle() {
+    this.mouseOnHandle = true;
+  }
+
+  onMouseLeaveHandle() {
+    this.mouseOnHandle = false;
+  }
+
   onBlur() {
+    if (this.mouseOnHandle) {
+      return;
+    }
+
     this.changeSubscription.unsubscribe();
     this.changeSubscription = null;
 
@@ -131,8 +151,12 @@ export class TextAreaEditorComponent extends ElementEditorComponent implements O
     this.textAreaEl.style.height = 'auto';
     this.textAreaEl.style.height = (this.textAreaEl.scrollHeight + TextAreaEditorComponent.BODER_WIDTH * 2) + 'px';
 
+    var width: string;
     this.textAreaEl.style.width = 'auto';
-    this.textAreaEl.style.width = (this.textAreaEl.scrollWidth + TextAreaEditorComponent.BODER_WIDTH * 2) + 'px';
+    width = (this.textAreaEl.scrollWidth + TextAreaEditorComponent.BODER_WIDTH * 2) + 'px';
+    this.handleEl.style.width = width;
+    this.textAreaEl.style.width = width;
+
   }
 
   private onChanges() {
